@@ -7,6 +7,12 @@ ARG BUILD_ARGUMENT_ENV=dev
 ENV ENV=$BUILD_ARGUMENT_ENV
 ENV APP_HOME /var/www/html
 
+#Debian configuration requires the environment variables APACHE_RUN_USER, APACHE_RUN_GROUP, and APACHE_PID_FILE to be set
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_PID_FILE /var/run/apache2.pid
+
+
 # check environment
 RUN if [ "$BUILD_ARGUMENT_ENV" = "default" ]; then echo "Set BUILD_ARGUMENT_ENV in docker build-args like --build-arg BUILD_ARGUMENT_ENV=dev" && exit 2; \
     elif [ "$BUILD_ARGUMENT_ENV" = "dev" ]; then echo "Building development environment."; \
@@ -16,8 +22,13 @@ RUN if [ "$BUILD_ARGUMENT_ENV" = "default" ]; then echo "Set BUILD_ARGUMENT_ENV 
     else echo "Set correct BUILD_ARGUMENT_ENV in docker build-args like --build-arg BUILD_ARGUMENT_ENV=dev. Available choices are dev,test,staging,prod." && exit 2; \
     fi
 
+RUN mkdir -p /usr/share/man/man1
+
 # install all the dependencies and enable PHP modules
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+      default-jre \
+      default-jdk \
+      vim \
       procps \
       nano \
       git \
@@ -46,6 +57,12 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
+#Install Java Compiler
+#RUN add-apt-repository -y "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main"
+#RUN apt-get update -y
+#RUN apt install -y default-jre
+#RUN apt-get install -y openjdk-11-jdk
+
 # disable default site and delete all default files inside APP_HOME
 RUN a2dissite 000-default.conf
 RUN rm -r $APP_HOME
@@ -70,7 +87,8 @@ RUN a2enmod ssl
 # install Xdebug in case development or test environment
 COPY ./docker/general/do_we_need_xdebug.sh /tmp/
 COPY ./docker/dev/xdebug.ini /tmp/
-RUN chmod u+x /tmp/do_we_need_xdebug.sh && /tmp/do_we_need_xdebug.sh
+RUN chmod u+x /tmp/do_we_need_xdebug.sh
+# && /tmp/do_we_need_xdebug.sh
 
 # install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
