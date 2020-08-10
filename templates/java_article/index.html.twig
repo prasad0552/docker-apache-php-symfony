@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block page_title %}JavaArticle index{% endblock %}
+
+{% block page_content %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Code</th>
+                <th>Slug</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for java_article in java_articles %}
+            <tr>
+                <td>{{ java_article.id }}</td>
+                <td>{{ java_article.title }}</td>
+                <td>{{ java_article.description }}</td>
+                <td>{{ java_article.code }}</td>
+                <td>{{ java_article.slug }}</td>
+                <td>
+                    <a href="{{ path('java_article_show', {'id': java_article.id}) }}">show</a>
+                    <a href="{{ path('java_article_edit', {'id': java_article.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('java_article_new') }}">Create new</a>
+{% endblock %}

@@ -43,6 +43,7 @@ trait JavaStrategy
         if ($input_file == null && $output_file == null) {
             //get the class name and run it using java command
             $command = "cd " . $this->getCompilationPath() . DS . " & ";
+            $command = "chmod 777 " . $configs['main_class'] . ".class & ";
             $command .= $configs['path_run'] . " " . $configs['main_class'] . " 2>&1";
             $output = exec($command);
 

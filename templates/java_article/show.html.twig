@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block page_title %}JavaArticle{% endblock %}
+
+{% block page_content %}
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ java_article.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ java_article.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ java_article.description }}</td>
+            </tr>
+            <tr>
+                <th>Code</th>
+                <td>{{ java_article.code }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ java_article.slug }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('java_article_index') }}">back to list</a>
+
+    <a href="{{ path('java_article_edit', {'id': java_article.id}) }}">edit</a>
+
+    {{ include('java_article/_delete_form.html.twig') }}
+{% endblock %}
