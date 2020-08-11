@@ -16,6 +16,7 @@ class JavaArticleType extends AbstractType
             ->add('description')
             ->add('code')
             ->add('slug')
+            ->add('className')
         ;
     }
 
