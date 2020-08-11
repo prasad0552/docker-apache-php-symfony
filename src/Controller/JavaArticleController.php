@@ -108,7 +108,7 @@ class JavaArticleController extends AbstractController
             $className = $javaArticle->getClassName();
             $comp = $obj->compile($java_code, $className);
             $javaArticle->setOutput("Compilation : " . ( ! is_array($comp) ? "Success" : "Fail" )  . "\n" .
-                "Running is : " . ( ! is_array($comp) ? $obj->run($className) : "Fail" ) . "\n");
+                "Output : " . ( ! is_array($comp) ? $obj->run($className) : "Fail" ) . "\n");
             $form = $this->getComplierForm($javaArticle);
         }
 
