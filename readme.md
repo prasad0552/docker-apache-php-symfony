@@ -232,3 +232,6 @@ Notes: Please see more commands in Makefile
 4. Iterate as needed.
 5. Make sure that "All checks have passed" on CircleCI(or another one in case you are not using CircleCI) and status is green.
 6. When PR is approved, it will be squashed & merged, into `develop` and later merged into `release/{No}` for deployment.
+
+docker-compose -f docker-compose.yml build
+docker-compose -f docker-compose.yml -p environment2  up -d
