@@ -13,7 +13,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200810021739 extends AbstractMigration
+final class Version20200810021740 extends AbstractMigration
 {
     /** @noinspection PhpMissingParentCallCommonInspection */
     /**
