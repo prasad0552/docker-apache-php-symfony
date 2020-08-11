@@ -12,13 +12,14 @@ trait JavaStrategy
      * @param $compiler
      * @return bool
      */
-    public function compileJava($code, $compiler)
+    public function compileJava($code, $compiler, $className = null)
     {
         $this->setCompiler($compiler);
         $compiler_configs = $this->getCompilerConfigs($compiler);
 
+        $className = $className ?? $compiler_configs['main_class'];
         //save the code in a file with that extension
-        $file_name =  $this->getCompilationPath() . DS . $compiler_configs['main_class'] . $compiler_configs['file_extension'] ;
+        $file_name =  $this->getCompilationPath() . DS . $className . $compiler_configs['file_extension'] ;
         file_put_contents($file_name, $code);
 
         //run the command that compiles the code in that file
@@ -36,17 +37,16 @@ trait JavaStrategy
      * @param null $output_file
      * @return string
      */
-    public function runJava($input_file = null, $output_file = null)
+    public function runJava($className = null, $input_file = null, $output_file = null)
     {
         $configs = $this->getCompilerConfigs($this->getCompiler());
 
+        $className = $className ?? $configs['main_class'];
+
         if ($input_file == null && $output_file == null) {
             //get the class name and run it using java command
-            $command = "cd " . $this->getCompilationPath() . DS . " & ";
-            $command = "chmod 777 " . $configs['main_class'] . ".class & ";
-            $command .= $configs['path_run'] . " " . $configs['main_class'] . " 2>&1";
+            $command = $configs['path_run'] . " -classpath .:". $this->getCompilationPath() . DS . " " . $className . " 2>&1";
             $output = exec($command);
-
             return $output;
         }
     }

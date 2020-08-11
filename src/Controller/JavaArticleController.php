@@ -72,53 +72,44 @@ class JavaArticleController extends AbstractController
     }
 
     /**
+     * @param $javaArticle
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    public function getComplierForm($javaArticle){
+        return $this->createFormBuilder($javaArticle)
+            ->add('language', ChoiceType::class, ['choices' => ['Java' => 'java']])
+            ->add('code', TextareaType::class)
+            ->add('input', TextareaType::class,[
+                'required' => false,
+            ])
+            ->add('output', TextareaType::class, [
+                'required' => false,
+            ])
+            ->add('save', SubmitType::class, ['label' => 'Run Code'])
+            ->getForm();
+    }
+    /**
      * @Route("/{id}/compile", name="java_article_view", methods={"GET","POST"})
      */
     public function view(Request $request, JavaArticle $javaArticle): Response
     {
-        $form = $this->createFormBuilder($javaArticle)
-            ->add('language', ChoiceType::class, ['choices' => ['Java' => 'java']])
-            ->add('code', TextareaType::class)
-            ->add('input', TextareaType::class)
-            ->add('save', SubmitType::class, ['label' => 'Run Code'])
-            ->getForm();
+        $form = $this->getComplierForm($javaArticle);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
+            $javaArticle = $form->getData();
             $obj = new Executor('java');
             //set compilation path
-//            $obj->setCompilationPath($this->appKernel->getProjectDir() . '/var/compiler');
-            $obj->setCompilationPath(__DIR__);
+            $obj->setCompilationPath($this->appKernel->getProjectDir() . '/var/compiler');
 
             //java
-            $java_code = <<<'EOT'
-	public class Main {
-        public static void main(String args[]) {
-            int num = 2;
-            switch (num + 2) {
-                case 1:
-                    System.out.println("Case1: Value is: " + num);
-                case 2:
-                    System.out.println("Case2: Value is: " + num);
-                case 3:
-                    System.out.println("Case3: Value is: " + num);
-                default:
-                    System.out.println("Default: Value is: " + num);
-            }
-        }
-    }
-EOT;
-            $comp = $obj->compile($java_code);
-
-            return new Response( "Compilation : " . ( ! is_array($comp) ? "Success" : "Fail" )  . "\n" .
-                "Running is : " . ( ! is_array($comp) ? $obj->run() : "Fail" ) . "\n"
-            );
-
-//            return new Response(
-//                'Compiler path: '. $obj->getCompilationPath()
-//            );
+            $java_code = $javaArticle->getCode();
+            $className = $javaArticle->getClassName();
+            $comp = $obj->compile($java_code, $className);
+            $javaArticle->setOutput("Compilation : " . ( ! is_array($comp) ? "Success" : "Fail" )  . "\n" .
+                "Running is : " . ( ! is_array($comp) ? $obj->run($className) : "Fail" ) . "\n");
+            $form = $this->getComplierForm($javaArticle);
         }
 
         return $this->render('java_article/view.html.twig', [

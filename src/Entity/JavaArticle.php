@@ -52,6 +52,11 @@ class JavaArticle
      */
     private $language = 'java';
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $output;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +142,18 @@ class JavaArticle
     public function setLanguage(?string $language): self
     {
         $this->language = $language;
+
+        return $this;
+    }
+
+    public function getOutput(): ?string
+    {
+        return $this->output;
+    }
+
+    public function setOutput(?string $output): self
+    {
+        $this->output = $output;
 
         return $this;
     }
