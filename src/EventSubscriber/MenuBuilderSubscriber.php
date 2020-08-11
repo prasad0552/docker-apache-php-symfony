@@ -60,24 +60,18 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
             new MenuItemModel('homepage', 'Homepage', 'homepage', [], 'fas fa-tachometer-alt')
         );
 
-        $event->addItem(
-            new MenuItemModel('context', 'Context', 'context', [], 'fas fa-code')
-        );
+        $language = new MenuItemModel('java', 'Java', null, [], 'far fa-arrow-alt-circle-right');
+        $language->setBadge('New Courses');
 
-        $demo = new MenuItemModel('java', 'Java', null, [], 'far fa-arrow-alt-circle-right');
-        $demo->setBadge('New Courses');
-
+        $javaCategory1 = new MenuItemModel('java-sub-category-1', 'Loops', null, [], 'far fa-arrow-alt-circle-right');
+        $language->addChild($javaCategory1);
         $articles = $this->javaArticleRepository->createQueryBuilder('java_article')->getQuery()->getArrayResult();
 
         foreach ($articles as $article) {
-            $demo->addChild(new MenuItemModel($article['slug'], $article['title'], 'java_article_view', ['id' => $article['id']]));
+            $javaCategory1->addChild(new MenuItemModel($article['slug'], $article['title'], 'java_article_view', ['id' => $article['id']]));
         }
 
-        $event->addItem($demo);
-
-        $event->addItem(
-                new MenuItemModel('compiler', 'Compiler', 'compiler', [], 'fas fa-terminal')
-        );
+        $event->addItem($language);
 
         if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $event->addItem(
