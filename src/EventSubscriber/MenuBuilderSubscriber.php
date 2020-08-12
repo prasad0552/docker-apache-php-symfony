@@ -56,14 +56,14 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
      */
     public function onSetupNavbar(SidebarMenuEvent $event)
     {
-        $event->addItem(
-            new MenuItemModel('homepage', 'Homepage', 'homepage', [], 'fas fa-tachometer-alt')
-        );
+//        $event->addItem(
+//            new MenuItemModel('homepage', 'Homepage', 'homepage', [], 'fas fa-tachometer-alt')
+//        );
 
         $language = new MenuItemModel('java', 'Java', null, [], 'far fa-arrow-alt-circle-right');
-        $language->setBadge('New Courses');
+//        $language->setBadge('New Courses');
 
-        $javaCategory1 = new MenuItemModel('java-sub-category-1', 'Loops', null, [], 'far fa-arrow-alt-circle-right');
+        $javaCategory1 = new MenuItemModel('java-sub-category-1', 'Basic', null, [], 'far fa-arrow-alt-circle-right');
         $language->addChild($javaCategory1);
         $articles = $this->javaArticleRepository->createQueryBuilder('java_article')->getQuery()->getArrayResult();
 
