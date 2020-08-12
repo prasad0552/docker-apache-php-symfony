@@ -80,9 +80,10 @@ class JavaArticleController extends AbstractController
     {
         return $this->createFormBuilder($javaArticle)
             ->add('language', HiddenType::class, ['data' => 'java'])
-            ->add('code', TextareaType::class, ['attr' => ['class' => 'tinymce', 'rows' => 10]])
+            ->add('code', TextareaType::class, ['attr' => ['class' => 'tinymce', 'rows' => 15]])
             ->add('output', TextareaType::class, [
                 'required' => false,
+                'rows' => 15
             ])
             ->add('save', SubmitType::class, ['label' => 'Run'])
             ->getForm();
