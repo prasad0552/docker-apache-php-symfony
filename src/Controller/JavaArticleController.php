@@ -79,9 +79,11 @@ class JavaArticleController extends AbstractController
     {
         return $this->createFormBuilder($javaArticle)
             ->add('language', ChoiceType::class, ['choices' => ['Java' => 'java']])
-            ->add('code', TextareaType::class, ['attr' => ['class' => 'tinymce']])
+            ->add('code', TextareaType::class, ['attr' => ['class' => 'tinymce', 'rows' => 10]])
             ->add('input', TextareaType::class, [
                 'required' => false,
+                'disabled' => true,
+                'attr' => ['disabled' => 'tinymce', 'rows' => 10]
             ])
             ->add('output', TextareaType::class, [
                 'required' => false,
