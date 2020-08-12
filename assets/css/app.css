@@ -13,3 +13,11 @@ body {
 .skin-blue .main-header .navbar {
     background-color: #3d515d !important;
 }
+
+.btn-primary {
+    background-color: #637c8a !important;
+}
+
+.side-menu li:active {
+    border-color: #2b343a !important;
+}
