@@ -5,9 +5,16 @@
 {% block page_subtitle %}{{ java_article.description }}{% endblock %}
 
 {% block page_content %}
+    {{ form_start(form) }}
     <div class="row">
         <div class="col-md-12">
-            {{ form(form) }}
+            <div class="col-md-6">
+                {{ form_row(form.code, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.output, {'attr': {'class': 'form-control'}}) }}
+            </div>
         </div>
     </div>
+    {{ form_end(form) }}
 {% endblock %}
