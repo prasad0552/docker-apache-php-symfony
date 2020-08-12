@@ -75,7 +75,7 @@ class JavaArticleController extends AbstractController
      * @param $javaArticle
      * @return \Symfony\Component\Form\FormInterface
      */
-    public function getComplierForm($javaArticle)
+    public function getCompilerForm($javaArticle)
     {
         return $this->createFormBuilder($javaArticle)
             ->add('language', ChoiceType::class, ['choices' => ['Java' => 'java']])
@@ -93,9 +93,9 @@ class JavaArticleController extends AbstractController
     /**
      * @Route("/{id}/compile", name="java_article_view", methods={"GET","POST"})
      */
-    public function view(Request $request, JavaArticle $javaArticle): Response
+    public function compile(Request $request, JavaArticle $javaArticle): Response
     {
-        $form = $this->getComplierForm($javaArticle);
+        $form = $this->getCompilerForm($javaArticle);
 
         $form->handleRequest($request);
 
@@ -111,7 +111,7 @@ class JavaArticleController extends AbstractController
             $comp = $obj->compile($java_code, $className);
             $javaArticle->setOutput("Compilation : " . (!is_array($comp) ? "Success" : "Fail") . "\n" .
                 "Output : " . (!is_array($comp) ? $obj->run($className) : "Fail") . "\n");
-            $form = $this->getComplierForm($javaArticle);
+            $form = $this->getCompilerForm($javaArticle);
         }
 
         return $this->render('java_article/view.html.twig', [
