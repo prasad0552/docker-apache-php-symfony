@@ -8,6 +8,7 @@ use App\Form\JavaArticleType;
 use App\Repository\JavaArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
@@ -78,12 +79,11 @@ class JavaArticleController extends AbstractController
     public function getCompilerForm($javaArticle)
     {
         return $this->createFormBuilder($javaArticle)
-            ->add('language', ChoiceType::class, ['choices' => ['Java' => 'java']])
+            ->add('language', HiddenType::class, ['data' => 'java'])
             ->add('code', TextareaType::class, ['attr' => ['class' => 'tinymce', 'rows' => 10]])
             ->add('input', TextareaType::class, [
                 'required' => false,
-                'disabled' => true,
-                'attr' => ['disabled' => 'tinymce', 'rows' => 10]
+                'disabled' => true
             ])
             ->add('output', TextareaType::class, [
                 'required' => false,
