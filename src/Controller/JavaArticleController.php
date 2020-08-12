@@ -83,7 +83,7 @@ class JavaArticleController extends AbstractController
             ->add('code', TextareaType::class, ['attr' => ['class' => 'tinymce', 'rows' => 15]])
             ->add('output', TextareaType::class, [
                 'required' => false,
-                'rows' => 15
+                'attr' => ['class' => 'tinymce', 'rows' => 15]
             ])
             ->add('save', SubmitType::class, ['label' => 'Run'])
             ->getForm();
