@@ -63,7 +63,7 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
         $language = new MenuItemModel('java', 'Java', null, [], 'far fa-arrow-alt-circle-right');
 //        $language->setBadge('New Courses');
 
-        $javaCategory1 = new MenuItemModel('java-sub-category-1', 'Basic', null, [], 'far fa-arrow-alt-circle-right');
+        $javaCategory1 = new MenuItemModel('java-sub-category-1', 'Basics', null, [], 'far fa-arrow-alt-circle-right');
         $language->addChild($javaCategory1);
         $articles = $this->javaArticleRepository->createQueryBuilder('java_article')->getQuery()->getArrayResult();
 
