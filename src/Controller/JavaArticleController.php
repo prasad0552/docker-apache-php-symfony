@@ -75,11 +75,12 @@ class JavaArticleController extends AbstractController
      * @param $javaArticle
      * @return \Symfony\Component\Form\FormInterface
      */
-    public function getComplierForm($javaArticle){
+    public function getComplierForm($javaArticle)
+    {
         return $this->createFormBuilder($javaArticle)
             ->add('language', ChoiceType::class, ['choices' => ['Java' => 'java']])
-            ->add('code', TextareaType::class)
-            ->add('input', TextareaType::class,[
+            ->add('code', TextareaType::class, ['attr' => ['class' => 'tinymce']])
+            ->add('input', TextareaType::class, [
                 'required' => false,
             ])
             ->add('output', TextareaType::class, [
@@ -88,6 +89,7 @@ class JavaArticleController extends AbstractController
             ->add('save', SubmitType::class, ['label' => 'Run Code'])
             ->getForm();
     }
+
     /**
      * @Route("/{id}/compile", name="java_article_view", methods={"GET","POST"})
      */
@@ -107,8 +109,8 @@ class JavaArticleController extends AbstractController
             $java_code = $javaArticle->getCode();
             $className = $javaArticle->getClassName();
             $comp = $obj->compile($java_code, $className);
-            $javaArticle->setOutput("Compilation : " . ( ! is_array($comp) ? "Success" : "Fail" )  . "\n" .
-                "Output : " . ( ! is_array($comp) ? $obj->run($className) : "Fail" ) . "\n");
+            $javaArticle->setOutput("Compilation : " . (!is_array($comp) ? "Success" : "Fail") . "\n" .
+                "Output : " . (!is_array($comp) ? $obj->run($className) : "Fail") . "\n");
             $form = $this->getComplierForm($javaArticle);
         }
 
@@ -143,7 +145,7 @@ class JavaArticleController extends AbstractController
      */
     public function delete(Request $request, JavaArticle $javaArticle): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$javaArticle->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $javaArticle->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($javaArticle);
             $entityManager->flush();
