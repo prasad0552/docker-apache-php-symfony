@@ -60,10 +60,14 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
 
         $javaCategory1 = new MenuItemModel('java-sub-category-1', 'Basics', null, [], 'far fa-arrow-alt-circle-right');
         $language->addChild($javaCategory1);
-        $articles = $this->javaArticleRepository->createQueryBuilder('java_article')
-            ->orderBy('sort_order', 'ASC')
+        $articles = $this->javaArticleRepository
+            ->createQueryBuilder('java_article')
             ->getQuery()
             ->getArrayResult();
+
+        usort($articles, function ($item1, $item2) {
+            return $item1['sort_order'] <=> $item2['sort_order'];
+        });
 
         foreach ($articles as $article) {
             $javaCategory1->addChild(new MenuItemModel($article['slug'], $article['title'], 'java_article_view', ['id' => $article['id']]));
