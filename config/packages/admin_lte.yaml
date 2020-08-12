@@ -27,13 +27,13 @@ admin_lte:
 
     # configurable tabs in the control_sidebar (right screen), see:
     # https://github.com/kevinpapst/AdminLTEBundle/blob/master/Resources/docs/control_sidebar.md
-    control_sidebar:
-        home:
-            icon: fas fa-home
-            template: control-sidebar/home.html.twig
-        settings:
-            icon: fas fa-cogs
-            controller: 'App\Controller\DefaultController::userPreferences'
+#    control_sidebar:
+#        home:
+#            icon: fas fa-home
+#            template: control-sidebar/home.html.twig
+#        settings:
+#            icon: fas fa-cogs
+#            controller: 'App\Controller\DefaultController::userPreferences'
 
 
 #    theme:
