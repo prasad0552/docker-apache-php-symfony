@@ -86,7 +86,7 @@ class JavaArticleController extends AbstractController
             ->add('output', TextareaType::class, [
                 'required' => false,
             ])
-            ->add('save', SubmitType::class, ['label' => 'Run Code'])
+            ->add('save', SubmitType::class, ['label' => 'Run'])
             ->getForm();
     }
 
