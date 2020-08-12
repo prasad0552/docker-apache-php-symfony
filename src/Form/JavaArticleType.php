@@ -17,7 +17,7 @@ class JavaArticleType extends AbstractType
             ->add('code')
             ->add('slug')
             ->add('className')
-        ;
+            ->add('sort_order');
     }
 
     public function configureOptions(OptionsResolver $resolver)

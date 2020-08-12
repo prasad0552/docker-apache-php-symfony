@@ -57,6 +57,11 @@ class JavaArticle
      */
     private $output;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $sort_order;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +159,18 @@ class JavaArticle
     public function setOutput(?string $output): self
     {
         $this->output = $output;
+
+        return $this;
+    }
+
+    public function getSortOrder(): ?int
+    {
+        return $this->sort_order;
+    }
+
+    public function setSortOrder(int $sort_order): self
+    {
+        $this->sort_order = $sort_order;
 
         return $this;
     }
