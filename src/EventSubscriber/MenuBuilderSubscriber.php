@@ -62,6 +62,8 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
         $language->addChild($javaCategory1);
         $articles = $this->javaArticleRepository
             ->createQueryBuilder('java_article')
+            ->andWhere('java_article.id IN (:ids)')
+            ->setParameter('ids', [1,2])
             ->getQuery()
             ->getArrayResult();
 
