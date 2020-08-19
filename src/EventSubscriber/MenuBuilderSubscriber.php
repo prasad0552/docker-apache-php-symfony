@@ -76,13 +76,29 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
         }
 
         $javaCategory2 = new MenuItemModel('java-sub-category-2', 'Methods', null, [], 'far fa-arrow-alt-circle-right');
-        $article = current($articles);
-        $javaCategory2->addChild(new MenuItemModel($article['slug'], 'Methods', 'java_article_view', ['id' => $article['id']]));
+        $articles = $this->javaArticleRepository
+            ->createQueryBuilder('java_article')
+            ->andWhere('java_article.id IN (:ids)')
+            ->setParameter('ids', [3])
+            ->getQuery()
+            ->getArrayResult();
+
+        foreach ($articles as $article) {
+            $javaCategory2->addChild(new MenuItemModel($article['slug'], 'Methods', 'java_article_view', ['id' => $article['id']]));
+        }
         $language->addChild($javaCategory2);
 
+        $articles = $this->javaArticleRepository
+            ->createQueryBuilder('java_article')
+            ->andWhere('java_article.id IN (:ids)')
+            ->setParameter('ids', [4])
+            ->getQuery()
+            ->getArrayResult();
+
         $javaCategory3 = new MenuItemModel('java-sub-category-3', 'Classes', null, [], 'far fa-arrow-alt-circle-right');
-        $article = current($articles);
-        $javaCategory3->addChild(new MenuItemModel($article['slug'], 'OOP', 'java_article_view', ['id' => $article['id']]));
+        foreach ($articles as $article) {
+            $javaCategory3->addChild(new MenuItemModel($article['slug'], 'OOP', 'java_article_view', ['id' => $article['id']]));
+        }
 
         $language->addChild($javaCategory3);
 
