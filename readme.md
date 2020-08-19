@@ -98,7 +98,7 @@ make composer-install
 
 6.Make sure that you have installed migrations / messenger transports:
 ```bash
-make migrate
+    make migrate
 make messenger-setup-transports
 ```
 

@@ -73,6 +73,17 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
             $javaCategory1->addChild(new MenuItemModel($article['slug'], $article['title'], 'java_article_view', ['id' => $article['id']]));
         }
 
+        $javaCategory2 = new MenuItemModel('java-sub-category-2', 'Methods', null, [], 'far fa-arrow-alt-circle-right');
+        $article = current($articles);
+        $javaCategory2->addChild(new MenuItemModel($article['slug'], 'Methods', 'java_article_view', ['id' => $article['id']]));
+        $language->addChild($javaCategory2);
+
+        $javaCategory3 = new MenuItemModel('java-sub-category-3', 'Classes', null, [], 'far fa-arrow-alt-circle-right');
+        $article = current($articles);
+        $javaCategory3->addChild(new MenuItemModel($article['slug'], 'OOP', 'java_article_view', ['id' => $article['id']]));
+
+        $language->addChild($javaCategory3);
+
         $event->addItem($language);
 
         if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
