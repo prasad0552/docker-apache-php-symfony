@@ -17,6 +17,11 @@
 
 {% block sidebar_search %}
 {% endblock %}
+
+{% block sidebar_nav %}
+    {{ parent() }}
+{% endblock %}
+
 {% block breadcrumb %}{% endblock %}
 {% block javascripts %}
     <!-- Renders app.js & a webpack runtime.js file
