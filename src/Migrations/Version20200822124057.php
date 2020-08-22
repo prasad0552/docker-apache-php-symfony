@@ -13,7 +13,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200822115127 extends AbstractMigration
+final class Version20200822124057 extends AbstractMigration
 {
     /** @noinspection PhpMissingParentCallCommonInspection */
     /**
@@ -34,8 +34,7 @@ final class Version20200822115127 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE java_article ADD status TINYINT(1) NOT NULL');
-        $this->addSql('ALTER TABLE java_article_category ADD status TINYINT(1) NOT NULL');
+        $this->addSql('ALTER TABLE java_article ADD output LONGTEXT DEFAULT NULL');
     }
 
     /**
@@ -47,7 +46,7 @@ final class Version20200822115127 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
-        $this->addSql('ALTER TABLE java_article DROP status');
-        $this->addSql('ALTER TABLE java_article_category DROP status');
+
+        $this->addSql('ALTER TABLE java_article DROP output');
     }
 }

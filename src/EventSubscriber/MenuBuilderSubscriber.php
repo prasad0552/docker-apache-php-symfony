@@ -17,7 +17,9 @@ use KevinPapst\AdminLTEBundle\Event\SidebarMenuEvent;
 use KevinPapst\AdminLTEBundle\Model\MenuItemModel;
 use Proxies\__CG__\App\Entity\JavaArticleCategory;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Twig\Error\RuntimeError;
 
 /**
  * Class MenuBuilder configures the main navigation.
@@ -54,6 +56,33 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
         ];
     }
 
+    public static function slugify($text)
+    {
+        // replace non letter or digits by -
+        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+
+        // transliterate
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+        // remove unwanted characters
+        $text = preg_replace('~[^-\w]+~', '', $text);
+
+        // trim
+        $text = trim($text, '-');
+
+        // remove duplicate -
+        $text = preg_replace('~-+~', '-', $text);
+
+        // lowercase
+        $text = strtolower($text);
+
+        if (empty($text)) {
+            return 'n-a';
+        }
+
+        return $text;
+    }
+
     /**
      * Generate the main menu.
      *
@@ -61,78 +90,49 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
      */
     public function onSetupNavbar(SidebarMenuEvent $event)
     {
-        $language = new MenuItemModel('java', 'Java', null, [], 'far fa-arrow-alt-circle-right');
+        try {
+            $language = new MenuItemModel('java', 'Java', null, [], 'far fa-arrow-alt-circle-right');
+            /**
+             * @var \App\Entity\JavaArticleCategory[] $categories
+             */
+            $categories = $this->categoryRepository->createQueryBuilder('java_article_category')
+                ->addOrderBy('java_article_category.sort_order')
+                ->getQuery()
+                ->execute();
 
-//        $categories = $this->categoryRepository->createQueryBuilder('java_article_category')->getQuery();
+            foreach ($categories as $category) {
+                $categoryItem = new MenuItemModel($this->slugify($category->getName()), $category->getName(), null, [], 'far fa-arrow-alt-circle-right');
+                $articles = $category->getJavaArticles();
+                if ($articles->isEmpty()) {
+                    continue;
+                }
+                foreach ($articles as $article) {
+                    $categoryItem->addChild(new MenuItemModel($article->getSlug(), $article->getTitle(), 'java_article_view', ['id' => $article->getId()]));
+                }
+                $language->addChild($categoryItem);
+            }
 
-//        $javaCategory1 = new MenuItemModel('java-sub-category-1', 'Basics', null, [], 'far fa-arrow-alt-circle-right');
-//        $language->addChild($javaCategory1);
+            $event->addItem($language);
 
-//        $articles = $this->javaArticleRepository
-//            ->createQueryBuilder('java_article')
-//            ->andWhere('java_article.id IN (:ids)')
-//            ->setParameter('ids', [1, 2])
-//            ->getQuery()
-//            ->getArrayResult();
-//
-//        usort($articles, function ($item1, $item2) {
-//            return $item1['sort_order'] <=> $item2['sort_order'];
-//        });
-//
-//        if (!empty($articles)) {
-//            foreach ($articles as $article) {
-//                $javaCategory1->addChild(new MenuItemModel($article['slug'], $article['title'], 'java_article_view', ['id' => $article['id']]));
-//            }
-//        }
+            if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+                $event->addItem(
+                    new MenuItemModel('logout', 'Logout', 'logout', [], 'fas fa-sign-out-alt')
+                );
+            } else {
+                $event->addItem(
+                    new MenuItemModel('login', 'Login', 'login', [], 'fas fa-sign-in-alt')
+                );
+            }
 
-//        $javaCategory2 = new MenuItemModel('java-sub-category-2', 'Methods', null, [], 'far fa-arrow-alt-circle-right');
-//
-//        $articles = $this->javaArticleRepository
-//            ->createQueryBuilder('java_article')
-//            ->andWhere('java_article.id IN (:ids)')
-//            ->setParameter('ids', [3])
-//            ->getQuery()
-//            ->getArrayResult();
-//
-//        if (!empty($articles)) {
-//            foreach ($articles as $article) {
-//                $javaCategory2->addChild(new MenuItemModel($article['slug'], 'Methods', 'java_article_view', ['id' => $article['id']]));
-//            }
-//        }
-//        $language->addChild($javaCategory2);
-//
-//        $articles = $this->javaArticleRepository
-//            ->createQueryBuilder('java_article')
-//            ->andWhere('java_article.id IN (:ids)')
-//            ->setParameter('ids', [4])
-//            ->getQuery()
-//            ->getArrayResult();
-//
-//        $javaCategory3 = new MenuItemModel('java-sub-category-3', 'Classes', null, [], 'far fa-arrow-alt-circle-right');
-//        if (!empty($articles)) {
-//            foreach ($articles as $article) {
-//                $javaCategory3->addChild(new MenuItemModel($article['slug'], 'OOP', 'java_article_view', ['id' => $article['id']]));
-//            }
-//        }
-//
-//        $language->addChild($javaCategory3);
-
-        $event->addItem($language);
-
-        if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $event->addItem(
-                new MenuItemModel('logout', 'Logout', 'logout', [], 'fas fa-sign-out-alt')
+            $this->activateByRoute(
+                $event->getRequest()->get('_route'),
+                $event->getItems()
             );
-        } else {
-            $event->addItem(
-                new MenuItemModel('login', 'Login', 'login', [], 'fas fa-sign-in-alt')
-            );
+        } catch (RuntimeError $exception) {
+
+        } catch (RouteNotFoundException $exception) {
+
         }
-
-        $this->activateByRoute(
-            $event->getRequest()->get('_route'),
-            $event->getItems()
-        );
     }
 
     /**
