@@ -113,8 +113,16 @@ class JavaArticleController extends AbstractController
             $java_code = $javaArticle->getCode();
             $className = $javaArticle->getClassName();
             $comp = $obj->compile($java_code, $className);
-            $javaArticle->setOutput("Compilation : " . (!is_array($comp) ? "Success" : "Fail") . "\n" .
-                "Output : " . (!is_array($comp) ? $obj->run($className) : "Fail") . "\n");
+
+            if (!is_array($comp)) {
+                $javaArticle->setOutput($obj->run($className) . "\n");
+            } else {
+                $output = "Compilation failed due to following error(s)." . "\n";
+                foreach ($comp as $key => $item) {
+                    $output .= str_replace('/var/www/html/var/compiler/', '', $item) . "\n";
+                }
+                $javaArticle->setOutput($output);
+            }
             $form = $this->getCompilerForm($javaArticle);
         }
 
