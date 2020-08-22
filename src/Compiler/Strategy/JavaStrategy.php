@@ -42,11 +42,12 @@ trait JavaStrategy
         $configs = $this->getCompilerConfigs($this->getCompiler());
 
         $className = $className ?? $configs['main_class'];
+        $runtime_file="runtime.txt";
 
         if ($input_file == null && $output_file == null) {
             //get the class name and run it using java command
             $command = $configs['path_run'] . " -classpath .:". $this->getCompilationPath() . DS . " " . $className . " 2>&1";
-            $output = exec($command);
+            $output = shell_exec($command);
             return $output;
         }
     }
