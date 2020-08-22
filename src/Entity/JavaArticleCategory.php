@@ -98,6 +98,16 @@ class JavaArticleCategory
         return $this->javaArticles;
     }
 
+    /**
+     * @return Collection|JavaArticle[]
+     */
+    public function getActiveJavaArticles()
+    {
+        return $this->getJavaArticles()->filter(function(JavaArticle $article) {
+            return $article->getStatus() == 1;
+        });
+    }
+
     public function addJavaArticle(JavaArticle $javaArticle): self
     {
         if (!$this->javaArticles->contains($javaArticle)) {

@@ -95,14 +95,16 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
             /**
              * @var \App\Entity\JavaArticleCategory[] $categories
              */
-            $categories = $this->categoryRepository->createQueryBuilder('java_article_category')
-                ->addOrderBy('java_article_category.sort_order')
+            $categories = $this->categoryRepository->createQueryBuilder('category')
+                ->andWhere('category.status = :status')
+                ->setParameter('status', 1)
+                ->addOrderBy('category.sort_order')
                 ->getQuery()
                 ->execute();
 
             foreach ($categories as $category) {
                 $categoryItem = new MenuItemModel($this->slugify($category->getName()), $category->getName(), null, [], 'far fa-arrow-alt-circle-right');
-                $articles = $category->getJavaArticles();
+                $articles = $category->getActiveJavaArticles();
                 if ($articles->isEmpty()) {
                     continue;
                 }
