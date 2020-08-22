@@ -62,6 +62,17 @@ class JavaArticle
      */
     private $sort_order;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=JavaArticleCategory::class, inversedBy="javaArticles")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $status;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -171,6 +182,30 @@ class JavaArticle
     public function setSortOrder(int $sort_order): self
     {
         $this->sort_order = $sort_order;
+
+        return $this;
+    }
+
+    public function getCategory(): ?JavaArticleCategory
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?JavaArticleCategory $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

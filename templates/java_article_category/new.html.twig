@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New JavaArticleCategory{% endblock %}
+
+{% block page_content %}
+    <h1>Create new JavaArticleCategory</h1>
+
+    {{ include('java_article_category/_form.html.twig') }}
+
+    <a href="{{ path('java_article_category_index') }}">back to list</a>
+{% endblock %}

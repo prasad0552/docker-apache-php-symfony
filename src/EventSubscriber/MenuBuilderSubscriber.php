@@ -9,11 +9,13 @@
 
 namespace App\EventSubscriber;
 
+use App\Repository\JavaArticleCategoryRepository;
 use App\Repository\JavaArticleRepository;
 use Doctrine\ORM\EntityManager;
 use KevinPapst\AdminLTEBundle\Event\BreadcrumbMenuEvent;
 use KevinPapst\AdminLTEBundle\Event\SidebarMenuEvent;
 use KevinPapst\AdminLTEBundle\Model\MenuItemModel;
+use Proxies\__CG__\App\Entity\JavaArticleCategory;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
@@ -27,15 +29,18 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
      */
     private $security;
 
-    protected $javaArticleRepository;
+    /**
+     * @var JavaArticleCategoryRepository
+     */
+    protected $categoryRepository;
 
     /**
      * @param AuthorizationCheckerInterface $security
      */
-    public function __construct(AuthorizationCheckerInterface $security, JavaArticleRepository $javaArticleRepository)
+    public function __construct(AuthorizationCheckerInterface $security, JavaArticleCategoryRepository $categoryRepository)
     {
         $this->security = $security;
-        $this->javaArticleRepository = $javaArticleRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -58,49 +63,59 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
     {
         $language = new MenuItemModel('java', 'Java', null, [], 'far fa-arrow-alt-circle-right');
 
-        $javaCategory1 = new MenuItemModel('java-sub-category-1', 'Basics', null, [], 'far fa-arrow-alt-circle-right');
-        $language->addChild($javaCategory1);
-        $articles = $this->javaArticleRepository
-            ->createQueryBuilder('java_article')
-            ->andWhere('java_article.id IN (:ids)')
-            ->setParameter('ids', [1,2])
-            ->getQuery()
-            ->getArrayResult();
+//        $categories = $this->categoryRepository->createQueryBuilder('java_article_category')->getQuery();
 
-        usort($articles, function ($item1, $item2) {
-            return $item1['sort_order'] <=> $item2['sort_order'];
-        });
+//        $javaCategory1 = new MenuItemModel('java-sub-category-1', 'Basics', null, [], 'far fa-arrow-alt-circle-right');
+//        $language->addChild($javaCategory1);
 
-        foreach ($articles as $article) {
-            $javaCategory1->addChild(new MenuItemModel($article['slug'], $article['title'], 'java_article_view', ['id' => $article['id']]));
-        }
+//        $articles = $this->javaArticleRepository
+//            ->createQueryBuilder('java_article')
+//            ->andWhere('java_article.id IN (:ids)')
+//            ->setParameter('ids', [1, 2])
+//            ->getQuery()
+//            ->getArrayResult();
+//
+//        usort($articles, function ($item1, $item2) {
+//            return $item1['sort_order'] <=> $item2['sort_order'];
+//        });
+//
+//        if (!empty($articles)) {
+//            foreach ($articles as $article) {
+//                $javaCategory1->addChild(new MenuItemModel($article['slug'], $article['title'], 'java_article_view', ['id' => $article['id']]));
+//            }
+//        }
 
-        $javaCategory2 = new MenuItemModel('java-sub-category-2', 'Methods', null, [], 'far fa-arrow-alt-circle-right');
-        $articles = $this->javaArticleRepository
-            ->createQueryBuilder('java_article')
-            ->andWhere('java_article.id IN (:ids)')
-            ->setParameter('ids', [3])
-            ->getQuery()
-            ->getArrayResult();
-
-        foreach ($articles as $article) {
-            $javaCategory2->addChild(new MenuItemModel($article['slug'], 'Methods', 'java_article_view', ['id' => $article['id']]));
-        }
-        $language->addChild($javaCategory2);
-
-        $articles = $this->javaArticleRepository
-            ->createQueryBuilder('java_article')
-            ->andWhere('java_article.id IN (:ids)')
-            ->setParameter('ids', [4])
-            ->getQuery()
-            ->getArrayResult();
-
-        $javaCategory3 = new MenuItemModel('java-sub-category-3', 'Classes', null, [], 'far fa-arrow-alt-circle-right');
-        foreach ($articles as $article) {
-            $javaCategory3->addChild(new MenuItemModel($article['slug'], 'OOP', 'java_article_view', ['id' => $article['id']]));
-        }
-
-        $language->addChild($javaCategory3);
+//        $javaCategory2 = new MenuItemModel('java-sub-category-2', 'Methods', null, [], 'far fa-arrow-alt-circle-right');
+//
+//        $articles = $this->javaArticleRepository
+//            ->createQueryBuilder('java_article')
+//            ->andWhere('java_article.id IN (:ids)')
+//            ->setParameter('ids', [3])
+//            ->getQuery()
+//            ->getArrayResult();
+//
+//        if (!empty($articles)) {
+//            foreach ($articles as $article) {
+//                $javaCategory2->addChild(new MenuItemModel($article['slug'], 'Methods', 'java_article_view', ['id' => $article['id']]));
+//            }
+//        }
+//        $language->addChild($javaCategory2);
+//
+//        $articles = $this->javaArticleRepository
+//            ->createQueryBuilder('java_article')
+//            ->andWhere('java_article.id IN (:ids)')
+//            ->setParameter('ids', [4])
+//            ->getQuery()
+//            ->getArrayResult();
+//
+//        $javaCategory3 = new MenuItemModel('java-sub-category-3', 'Classes', null, [], 'far fa-arrow-alt-circle-right');
+//        if (!empty($articles)) {
+//            foreach ($articles as $article) {
+//                $javaCategory3->addChild(new MenuItemModel($article['slug'], 'OOP', 'java_article_view', ['id' => $article['id']]));
+//            }
+//        }
+//
+//        $language->addChild($javaCategory3);
 
         $event->addItem($language);
 

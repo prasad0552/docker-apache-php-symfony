@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}JavaArticleCategory index{% endblock %}
+
+{% block page_content %}
+    <h1>JavaArticleCategory index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Sort_order</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for java_article_category in java_article_categories %}
+            <tr>
+                <td>{{ java_article_category.id }}</td>
+                <td>{{ java_article_category.name }}</td>
+                <td>{{ java_article_category.Description }}</td>
+                <td>{{ java_article_category.sortOrder }}</td>
+                <td>
+                    <a href="{{ path('java_article_category_show', {'id': java_article_category.id}) }}">show</a>
+                    <a href="{{ path('java_article_category_edit', {'id': java_article_category.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('java_article_category_new') }}">Create new</a>
+{% endblock %}
