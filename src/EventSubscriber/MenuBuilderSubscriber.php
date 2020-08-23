@@ -91,30 +91,42 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
     public function onSetupNavbar(SidebarMenuEvent $event)
     {
         try {
-            $language = new MenuItemModel('java', 'Java', null, [], 'far fa-arrow-alt-circle-right');
-            /**
-             * @var \App\Entity\JavaArticleCategory[] $categories
-             */
-            $categories = $this->categoryRepository->createQueryBuilder('category')
-                ->andWhere('category.status = :status')
-                ->setParameter('status', 1)
-                ->addOrderBy('category.sort_order')
-                ->getQuery()
-                ->execute();
+            if (!$this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+                $language = new MenuItemModel('java', 'Java', null, [], 'far fa-arrow-alt-circle-right');
+                /**
+                 * @var \App\Entity\JavaArticleCategory[] $categories
+                 */
+                $categories = $this->categoryRepository->createQueryBuilder('category')
+                    ->andWhere('category.status = :status')
+                    ->setParameter('status', 1)
+                    ->addOrderBy('category.sort_order')
+                    ->getQuery()
+                    ->execute();
 
-            foreach ($categories as $category) {
-                $categoryItem = new MenuItemModel($this->slugify($category->getName()), $category->getName(), null, [], 'far fa-arrow-alt-circle-right');
-                $articles = $category->getActiveJavaArticles();
-                if ($articles->isEmpty()) {
-                    continue;
+                foreach ($categories as $category) {
+                    $categoryItem = new MenuItemModel($this->slugify($category->getName()), $category->getName(), null, [], 'far fa-arrow-alt-circle-right');
+                    $articles = $category->getActiveJavaArticles();
+                    if ($articles->isEmpty()) {
+                        continue;
+                    }
+                    foreach ($articles as $article) {
+                        $categoryItem->addChild(new MenuItemModel($article->getSlug(), $article->getTitle(), 'java_article_view', ['id' => $article->getId()]));
+                    }
+                    $language->addChild($categoryItem);
                 }
-                foreach ($articles as $article) {
-                    $categoryItem->addChild(new MenuItemModel($article->getSlug(), $article->getTitle(), 'java_article_view', ['id' => $article->getId()]));
-                }
-                $language->addChild($categoryItem);
+
+                $event->addItem($language);
             }
 
-            $event->addItem($language);
+            $this->activateByRoute(
+                $event->getRequest()->get('_route'),
+                $event->getItems()
+            );
+        } catch (RuntimeError $exception) {
+
+        } catch (RouteNotFoundException $exception) {
+
+        }
 
 //            if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
 //                $event->addItem(
@@ -126,15 +138,6 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
 //                );
 //            }
 
-            $this->activateByRoute(
-                $event->getRequest()->get('_route'),
-                $event->getItems()
-            );
-        } catch (RuntimeError $exception) {
-
-        } catch (RouteNotFoundException $exception) {
-
-        }
     }
 
     /**
