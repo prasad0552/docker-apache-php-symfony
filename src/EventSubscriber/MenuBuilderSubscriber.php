@@ -116,15 +116,15 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
 
             $event->addItem($language);
 
-            if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-                $event->addItem(
-                    new MenuItemModel('logout', 'Logout', 'logout', [], 'fas fa-sign-out-alt')
-                );
-            } else {
-                $event->addItem(
-                    new MenuItemModel('login', 'Login', 'login', [], 'fas fa-sign-in-alt')
-                );
-            }
+//            if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+//                $event->addItem(
+//                    new MenuItemModel('logout', 'Logout', 'logout', [], 'fas fa-sign-out-alt')
+//                );
+//            } else {
+//                $event->addItem(
+//                    new MenuItemModel('login', 'Login', 'login', [], 'fas fa-sign-in-alt')
+//                );
+//            }
 
             $this->activateByRoute(
                 $event->getRequest()->get('_route'),
