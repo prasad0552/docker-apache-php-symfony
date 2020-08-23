@@ -25,8 +25,11 @@
     min-height: 50px; padding:14px 5px 0 5px; color:#000 !important; cursor:pointer
  }
  .sidebarUL li a.active{ background:#e1e6ea; color:#000}
-.content-header{ padding: 10px 15px 10px;background: #f8f8f8 !important;}
+.content-header{ padding: 10px 15px 10px;background: #e0edf3!important;}
+.logo-lg{ color:#ccf285}
+.content{ background:#fefefe;padding-top: 0;}
 
+.codepanel label ,.resultspanel label{ background:#f2f2f2; padding:10px 10px; border-bottom:0px solid #ccc; float:left; width:100%; margin:0;} 
 
 .sidebar-menu>li {
     
@@ -51,6 +54,7 @@
     color: #fff;
 }
 .btnswrap{ margin:0; padding:0; list-style:none; display:flex; flex-wrap:wrap;}
+.btnswrap.plr10{ padding-left:10px; padding-right:10px;}
 .btnswrap li{width: 100%;}
 .btnswrap a{    color: #fff !important;
     background: #19a4dd;
@@ -68,11 +72,18 @@
     padding: 0 10px;
 }
 .main-footer{ display:none;}
-#form_save{    margin-top: -56px;
+#form_save{    margin-top: -42px;
     float: right;    z-index: 9999;
-    position: relative;}
+    position: relative; background:#2ba448 !important}
 .main-header .logo{ text-align:left;}
 .codepanel textarea{ background:#002140; color:#fff }
+.sidebarUL li a > * {
+    display: block;
+    clear: both;
+}
+.blocks{ float:left; width:100%; padding-top:10px }
+.linedbtn{ border:1px solid #0395ce; padding:5px 10px; color:#8be6f4; background:none;}
+.fr{ float:right;}
 </style>
 
 
@@ -94,7 +105,7 @@
     
     <div class="sidebarwrap">
 <h3 class="sidebarheading">Java Curriculum</h3>
-<ul class="sidebarUL"><li><a><span>Base</span></a></li>
+<ul class="sidebarUL"><li><a><span>Basics</span></a></li>
 <li><a><span>Methods</span></a></li>
 <li><a><span>Classes</span></a></li>
 <li><a><span>Classes</span></a></li>
@@ -104,7 +115,7 @@
 <div class="sideaccrodian">
 <!-- first-block -->
 <div>
-<h3 class="sidebarheading">Coing Topics</h3>
+<h3 class="sidebarheading">Coding Topics</h3>
 <ul class="btnswrap"><li><a href="javascript:;" class="btns">Syntax</a></li>
 <li><a href="javascript:;" class="btns">Syntax</a></li>
 <li><a href="javascript:;" class="btns">Syntax</a></li></ul>
@@ -115,30 +126,22 @@
 
 <!-- 2nd-block -->
 <div>
-<h3 class="sidebarheading">Coing Topics</h3>
-<ul class="sidebar-menu tree" data-widget="tree">
- <li id="java" class="  treeview">
-<a href="#">  <i class="far fa-arrow-alt-circle-right"></i>  <i class="fas fa-angle-left pull-right"></i>  <span>Basic1</span> </a>
- <ul class="treeview-menu"> 
- <li class=""><a href="#"><i></i><span>If..Else2</span> </a></li>
-  <li class=""><a href="#"><i></i><span>If..Else3</span> </a></li>
-  </ul></li></ul>
+<h3 class="sidebarheading">Coding Topics</h3>
+<ul class="btnswrap"><li><a href="javascript:;" class="btns">Syntax</a></li>
+<li><a href="javascript:;" class="btns">Syntax</a></li>
+<li><a href="javascript:;" class="btns">Syntax</a></li></ul>
 </div>
 <!-- 2nd-block -->
+</div>
+   </div>
 
+<div class="blocks">
+<h3 class="sidebarheading">Manage Topics</h3>
+<ul class="btnswrap plr10"><li><a href="javascript:;" class="btns">Manage Content</a></li>
+<li><a href="javascript:;" class="btns">Manage Categories</a></li>
+</ul>
 
 </div>
-
-
-
-
-
-
-
-
-
-    </div>
-
 
 
 
