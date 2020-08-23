@@ -91,7 +91,7 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
     public function onSetupNavbar(SidebarMenuEvent $event)
     {
         try {
-            if (!$this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
                 $language = new MenuItemModel('java', 'Java', null, [], 'far fa-arrow-alt-circle-right');
                 /**
                  * @var \App\Entity\JavaArticleCategory[] $categories
