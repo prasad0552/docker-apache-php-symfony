@@ -25,7 +25,8 @@ class DefaultController extends AbstractController
      */
     public function index()
     {
-        return $this->render('default/index.html.twig', []);
+//        return $this->render('default/index.html.twig', []);
+        return $this->redirectToRoute('java_article_view', ['id' => 4]);
     }
 
     /**
