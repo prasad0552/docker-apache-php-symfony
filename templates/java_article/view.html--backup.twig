@@ -5,20 +5,16 @@
 {% block page_subtitle %}{{ java_article.description }}{% endblock %}
 
 {% block page_content %}
-<div class="form-main">
     {{ form_start(form) }}
-
     <div class="row">
-
-            <div class="col-md-6 col-xs-12 codepanel">
+        <div class="col-md-12">
+            <div class="col-md-6 col-xs-12">
                 {{ form_row(form.code, {'attr': {'class': 'form-control'}}) }}
             </div>
-            <div class="col-md-6 col-xs-12 resultspanel">
+            <div class="col-md-6">
                 {{ form_row(form.output, {'attr': {'class': 'form-control'}}) }}
             </div>
-
+        </div>
     </div>
-
     {{ form_end(form) }}
-</div>
 {% endblock %}

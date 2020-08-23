@@ -1,0 +1,23 @@
+body {
+    background-color: lightgray;
+}
+
+.skin-blue .main-header .logo {
+    background-color: #4b616d !important;
+}
+
+.skin-blue .main-header .logo:hover {
+    background-color: #4b616d !important;
+}
+
+.skin-blue .main-header .navbar {
+    background-color: #3d515d !important;
+}
+
+.btn-primary {
+    background-color: #637c8a !important;
+}
+
+.skin-blue .sidebar-menu>li.active>a {
+    border-left-color: #929ea5 !important;
+}

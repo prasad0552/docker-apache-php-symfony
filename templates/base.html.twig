@@ -6,6 +6,76 @@
     {{ encore_entry_link_tags('app') }}
     <!-- Renders a link tag (if your module requires any CSS)
          <link rel="stylesheet" href="/build/app.css"> -->
+<style>
+.sidebarheading{ font-size:20px; padding:10px; margin:0; font-style:italic;}
+.sidebarwrap, .sidebarwrap *{ box-sizing:border-box}
+.sidebarUL{ display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0; flex-wrap: wrap;}
+.sidebarUL li{width:33%; list-style:none;padding: 4px;}
+.sidebarUL li a{    
+    height: 100%;
+    border: 1px solid #ccc;
+    width: 100%;
+    display: block;
+    border-radius: 4px;
+    background: #fff;
+    text-align: center;
+    min-height: 50px; padding:14px 5px 0 5px; color:#000 !important; cursor:pointer
+ }
+ .sidebarUL li a.active{ background:#e1e6ea; color:#000}
+.content-header{ padding: 10px 15px 10px;background: #f8f8f8 !important;}
+
+
+.sidebar-menu>li {
+    
+    background: #19a4dd;
+    background: #19a4dd;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+.skin-blue .sidebar-menu>li a {
+    color: #fff;
+}
+
+.skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li.menu-open>a, .skin-blue .sidebar-menu>li:hover>a {
+    color: #fff;
+    background: #19a4dd;
+}
+.skin-blue .sidebar-menu>li>.treeview-menu {
+    margin: 0;
+    background: #107eab;
+    }
+    .skin-blue .sidebar-menu .treeview-menu>li>a {
+    color: #fff;
+}
+.btnswrap{ margin:0; padding:0; list-style:none; display:flex; flex-wrap:wrap;}
+.btnswrap li{width: 100%;}
+.btnswrap a{    color: #fff !important;
+    background: #19a4dd;
+    border-radius: 4px;
+    padding: 10px;
+    width: 100%;
+    float: left;
+    margin: 0 0 2px 0;}
+.sideaccrodian > div{ display:none;}
+.sideaccrodian .sidebarheading{  padding:10px 0;}
+
+.sideaccrodian {
+    float: left;
+    width: 100%;
+    padding: 0 10px;
+}
+.main-footer{ display:none;}
+#form_save{    margin-top: -56px;
+    float: right;    z-index: 9999;
+    position: relative;}
+.main-header .logo{ text-align:left;}
+.codepanel textarea{ background:#002140; color:#fff }
+</style>
+
+
 {% endblock %}
 
 {% block logo_mini %}<b>I</b>K{% endblock %}
@@ -21,7 +91,58 @@
 {% block sidebar_nav %}
     {{ parent() }}
 
-    <p>You can start here...</p>
+    
+    <div class="sidebarwrap">
+<h3 class="sidebarheading">Java Curriculum</h3>
+<ul class="sidebarUL"><li><a><span>Base</span></a></li>
+<li><a><span>Methods</span></a></li>
+<li><a><span>Classes</span></a></li>
+<li><a><span>Classes</span></a></li>
+</ul>
+
+
+<div class="sideaccrodian">
+<!-- first-block -->
+<div>
+<h3 class="sidebarheading">Coing Topics</h3>
+<ul class="btnswrap"><li><a href="javascript:;" class="btns">Syntax</a></li>
+<li><a href="javascript:;" class="btns">Syntax</a></li>
+<li><a href="javascript:;" class="btns">Syntax</a></li></ul>
+
+</div>
+<!-- first-block -->
+
+
+<!-- 2nd-block -->
+<div>
+<h3 class="sidebarheading">Coing Topics</h3>
+<ul class="sidebar-menu tree" data-widget="tree">
+ <li id="java" class="  treeview">
+<a href="#">  <i class="far fa-arrow-alt-circle-right"></i>  <i class="fas fa-angle-left pull-right"></i>  <span>Basic1</span> </a>
+ <ul class="treeview-menu"> 
+ <li class=""><a href="#"><i></i><span>If..Else2</span> </a></li>
+  <li class=""><a href="#"><i></i><span>If..Else3</span> </a></li>
+  </ul></li></ul>
+</div>
+<!-- 2nd-block -->
+
+
+</div>
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
 {% endblock %}
 
 {% block breadcrumb %}{% endblock %}
@@ -29,7 +150,32 @@
     <!-- Renders app.js & a webpack runtime.js file
         <script src="/build/runtime.js"></script>
         <script src="/build/app.js"></script> -->
+
+
+
     {{ parent() }}
     {{ encore_entry_script_tags('app') }}
     {% include 'includes/javascript.html.twig' %}
+    <script>
+$(document).on('click','.sidebarUL li a',function(){
+var i=$(this).closest('li').index();
+$('.sidebarUL li a').removeClass('active');
+$(this).addClass('active');
+$('.sideaccrodian >div').hide();
+$('.sideaccrodian >div').eq(i).show();
+});
+
+$(document).ready(function(){
+
+if($('.form-main').length)
+{
+
+$('.form-main form').prepend(
+$('#form_save'))
+}
+
+})
+
+</script>
 {% endblock %}
+
