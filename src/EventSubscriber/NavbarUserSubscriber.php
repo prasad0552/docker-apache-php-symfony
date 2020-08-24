@@ -65,7 +65,7 @@ class NavbarUserSubscriber implements EventSubscriberInterface
             ->setAvatar('/bundles/adminlte/images/default_avatar.png')
             ->setMemberSince(new \DateTime());
 
-        //$event->setShowProfileLink(false);
+        $event->setShowProfileLink(false);
         //$event->addLink(new NavBarUserLink('Followers', 'home'));
 
         $event->setUser($user);
