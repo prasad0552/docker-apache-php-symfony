@@ -56,14 +56,11 @@ class NavbarUserSubscriber implements EventSubscriberInterface
         $myUser = $this->security->getUser();
 
         $user = new UserModel();
-        $user
-            ->setId($myUser->getId())
+        $user->setId($myUser->getId())
             ->setName($myUser->getUsername())
             ->setUsername($myUser->getUsername())
             ->setIsOnline(true)
-            ->setTitle('demo user')
-            ->setAvatar('/bundles/adminlte/images/default_avatar.png')
-            ->setMemberSince(new \DateTime());
+            ->setAvatar('/bundles/adminlte/images/default_avatar.png');
 
         $event->setShowProfileLink(false);
         //$event->addLink(new NavBarUserLink('Followers', 'home'));
