@@ -25,12 +25,13 @@
     min-height: 50px; padding:14px 5px 0 5px; color:#000 !important; cursor:pointer
  }
  .sidebarUL li a.active{ background:#e1e6ea; color:#000}
-.content-header{ padding: 10px 15px 10px;background: #e0edf3!important;}
-.logo-lg{ color:#ccf285}
+.content-header{ padding: 10px 15px 10px;background: #fafafa!important;}
+.logo-lg{ color:#ccf285;font-weight: 600;}
+.content-wrapper{ background:#fff !important}
 .content{ background:#fefefe;padding-top: 0;}
 
-.codepanel label ,.resultspanel label{ background:#f2f2f2; padding:10px 10px; border-bottom:0px solid #ccc; float:left; width:100%; margin:0;} 
-
+.codepanel label ,.resultspanel label{ background:#f2f2f2; padding:10px 10px; border-bottom:0px solid #ccc; float:left; width:100%; margin:1px 0 0 0;} 
+.codepanel .form-group,.resultspanel .form-group{padding:0 0px 0 5px;  }
 .sidebar-menu>li {
     
     background: #19a4dd;
@@ -46,6 +47,7 @@
     color: #fff;
     background: #19a4dd;
 }
+.wrapper{ background:#fff !important}
 .skin-blue .sidebar-menu>li>.treeview-menu {
     margin: 0;
     background: #107eab;
@@ -72,9 +74,9 @@
     padding: 0 10px;
 }
 .main-footer{ display:none;}
-#form_save{    margin-top: -42px;
+#form_save{    margin-top: -39px;
     float: right;    z-index: 9999;
-    position: relative; background:#2ba448 !important}
+    position: relative; background:#5cb75a !important; border-radius:5px; border:0 !important}
 .main-header .logo{ text-align:left;}
 .codepanel textarea{ background:#002140; color:#fff }
 .sidebarUL li a > * {
@@ -84,7 +86,7 @@
 .blocks{ float:left; width:100%; padding-top:10px }
 .linedbtn{ border:1px solid #0395ce; padding:5px 10px; color:#8be6f4; background:none;}
 .fr{ float:right;}
-</style>
+</style> 
 
 
 {% endblock %}
@@ -137,7 +139,7 @@
 
 <div class="blocks">
 <h3 class="sidebarheading">Manage Topics</h3>
-<ul class="btnswrap plr10"><li><a href="javascript:;" class="btns">Manage Content</a></li>
+<ul class="btnswrap plr10"><li><a href="javascript:;" class="btns">Manage Content <i class="fa fa-arrows-alt fr"></i></a></li>
 <li><a href="javascript:;" class="btns">Manage Categories</a></li>
 </ul>
 
@@ -171,14 +173,13 @@ $('.sideaccrodian >div').eq(i).show();
 $(document).ready(function(){
 
 if($('.form-main').length)
-{
+{ 
 
 $('.form-main form').prepend(
 $('#form_save'))
 }
 
 })
-
 </script>
 {% endblock %}
 

@@ -2,7 +2,7 @@ body {
     background-color: lightgray;
 }
 .skin-blue .main-header .navbar ,.skin-blue .main-header .logo, .skin-blue .main-header .logo:hover{
-    background-color: #07a7e1!important;
+    background-color: #fff!important;
 }
 
 .btn-primary {
@@ -13,6 +13,6 @@ body {
     border-left-color: #929ea5 !important;
 }
 .skin-blue .left-side, .skin-blue .main-sidebar, .skin-blue .wrapper {
-    background-color: #e3e6eb;
+    background-color: #f4f7fc;
 }
 .sidebar-toggle{ display: none;}
