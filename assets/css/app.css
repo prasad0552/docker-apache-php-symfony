@@ -211,3 +211,7 @@ body {
 .fr {
     float: right;
 }
+
+li.user-menu {
+    background-color: #19a4dd !important;
+}
