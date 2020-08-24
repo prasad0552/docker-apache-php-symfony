@@ -84,7 +84,7 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
     public function onSetupNavbar(SidebarMenuEvent $event)
     {
         try {
-//            if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
                 $language = new MenuItemModel('java-curriculum', 'Java Curriculum', null);
                 /**
                  * @var \App\Entity\JavaArticleCategory[] $categories
@@ -109,13 +109,13 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
                 }
 
                 $event->addItem($language);
-//            }
 
-            $admin = new MenuItemModel('admin', 'Manage Curriculum', null, [], true);
-            $admin->addChild(new MenuItemModel('categories', 'Categories', 'java_article_category_index'));
-            $admin->addChild(new MenuItemModel('articles', 'Topics', 'java_article_index'));
+                $admin = new MenuItemModel('admin', 'Manage Curriculum', null, [], true);
+                $admin->addChild(new MenuItemModel('categories', 'Categories', 'java_article_category_index'));
+                $admin->addChild(new MenuItemModel('articles', 'Topics', 'java_article_index'));
 
-            $event->addItem($admin);
+                $event->addItem($admin);
+            }
 
             $this->activateByRoute(
                 $event->getRequest()->get('_route'),
