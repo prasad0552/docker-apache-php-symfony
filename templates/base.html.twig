@@ -22,6 +22,10 @@
     {{ render(controller('App\\Controller\\SidebarController::menuAction', {'request':app.request})) }}
 {% endblock %}
 
+{% block navbar_user %}
+    {{ render(controller('App\\Controller\\NavbarController::userAction')) }}
+{% endblock %}
+
 {% block breadcrumb %}{% endblock %}
 {% block javascripts %}
     <!-- Renders app.js & a webpack runtime.js file
