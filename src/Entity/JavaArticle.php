@@ -73,6 +73,16 @@ class JavaArticle
      */
     private $status;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isDraggable;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $referenceLink;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -206,6 +216,30 @@ class JavaArticle
     public function setStatus(bool $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getIsDraggable(): ?bool
+    {
+        return $this->isDraggable;
+    }
+
+    public function setIsDraggable(bool $isDraggable): self
+    {
+        $this->isDraggable = $isDraggable;
+
+        return $this;
+    }
+
+    public function getReferenceLink(): ?string
+    {
+        return $this->referenceLink;
+    }
+
+    public function setReferenceLink(?string $referenceLink): self
+    {
+        $this->referenceLink = $referenceLink;
 
         return $this;
     }
