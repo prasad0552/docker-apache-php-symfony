@@ -1,0 +1,81 @@
+{% macro menu_item(item) %}
+    {% import _self as menu %}
+    {% if item.route or item.hasChildren %}
+        <h3 class=" {{ item.isActive ? 'active' : '' }} sidebar__heading">
+            {#            <a href="{{ item.hasChildren ? '#': '/' in item.route ? item.route : path(item.route|route_alias, item.routeArgs) }}">#}
+            {% if item.icon %} <i class="{{ item.icon }}"></i> {% endif %}
+            {% if item.badge is not same as(false) %}
+                <small class="label pull-right bg-{{ item.badgeColor }}">{{ item.badge }}</small>
+            {% endif %}
+            {#                {% if item.hasChildren %}<i class="fas fa-angle-left pull-right"></i>{% endif %}#}
+            <span>{{ item.label|trans }}</span>
+            {#            </a>#}
+        </h3>
+
+        {% if item.isAdmin %}
+            <ul class="btnswrap plr10" id="{{ item.identifier }}">
+                {% for child in item.children %}
+                    <li class="{{ child.isActive ? 'active':'' }} btns" id="{{ child.identifier }}">
+                        <a href="{{ '/' in child.route ? child.route : path(child.route|route_alias, child.routeArgs) }}">
+                            {{ menu.menu_item_content(child, '') }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% elseif item.hasChildren %}
+            <nav>
+                <ul class="sidebar__ul" id="{{ item.identifier }}" role="tablist">
+                    {% for key, child in item.children %}
+                        {% if child.hasChildren %}
+                            <li class="nav-item {{ key == 0 ? 'active':'' }}">
+                                <a data-toggle="tab" href="#{{ child.identifier }}">
+                                    {{ menu.menu_item_content(child, '') }}
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="{{ child.isActive ? 'active':'' }}" id="{{ child.identifier }}">
+                                <a href="{{ '/' in child.route ? child.route : path(child.route|route_alias, child.routeArgs) }}">
+                                    {{ menu.menu_item_content(child, '') }}
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </nav>
+            <div class="sidebar__accordion tab-content">
+                {% for key, child in item.children %}
+                    {% if child.hasChildren %}
+                        <div role="tabpanel" class="tab-pane {% if key == 0 %}in active{% endif %}"
+                             id="{{ child.identifier }}" {% if key == 0 %}in active{% endif %}>
+                            {% if item.identifier == "java-curriculum" %}
+                                <h3 class="sidebar__heading">Coding Topics</h3>
+                            {% endif %}
+                            <ul class="btnswrap">
+                                {% for leaf in child.children %}
+                                    <li class="{{ leaf.isActive ? 'active':'' }}" id="{{ leaf.identifier }}">
+                                        <a class="btns"
+                                           href="{{ '/' in leaf.route ? leaf.route : path(leaf.route|route_alias, leaf.routeArgs) }}">
+                                            {{ menu.menu_item_content(leaf, '') }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% else %}
+        <li id="{{ item.identifier }}" class="header">
+            {{ menu.menu_item_content(item, '') }}
+        </li>
+    {% endif %}
+{% endmacro %}
+
+    {% macro menu_item_content(item, defaultIcon) %}
+        <i class="{{ item.icon|default(defaultIcon) }}"></i>
+        <span>{{ item.label|trans }}</span>
+        {% if item.badge is not same as(false) %}
+            <small class="label pull-right bg-{{ item.badgeColor }}">{{ item.badge }}</small>
+        {% endif %}
+    {% endmacro %}

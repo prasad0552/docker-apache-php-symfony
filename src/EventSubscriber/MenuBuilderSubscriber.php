@@ -14,7 +14,7 @@ use App\Repository\JavaArticleRepository;
 use Doctrine\ORM\EntityManager;
 use KevinPapst\AdminLTEBundle\Event\BreadcrumbMenuEvent;
 use KevinPapst\AdminLTEBundle\Event\SidebarMenuEvent;
-use KevinPapst\AdminLTEBundle\Model\MenuItemModel;
+use App\Model\MenuItemModel;
 use Proxies\__CG__\App\Entity\JavaArticleCategory;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
@@ -60,26 +60,19 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
     {
         // replace non letter or digits by -
         $text = preg_replace('~[^\pL\d]+~u', '-', $text);
-
         // transliterate
         $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
-
         // remove unwanted characters
         $text = preg_replace('~[^-\w]+~', '', $text);
-
         // trim
         $text = trim($text, '-');
-
         // remove duplicate -
         $text = preg_replace('~-+~', '-', $text);
-
         // lowercase
         $text = strtolower($text);
-
         if (empty($text)) {
             return 'n-a';
         }
-
         return $text;
     }
 
@@ -91,8 +84,8 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
     public function onSetupNavbar(SidebarMenuEvent $event)
     {
         try {
-            if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-                $language = new MenuItemModel('java', 'Java', null, [], 'far fa-arrow-alt-circle-right');
+//            if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+                $language = new MenuItemModel('java-curriculum', 'Java Curriculum', null);
                 /**
                  * @var \App\Entity\JavaArticleCategory[] $categories
                  */
@@ -104,7 +97,7 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
                     ->execute();
 
                 foreach ($categories as $category) {
-                    $categoryItem = new MenuItemModel($this->slugify($category->getName()), $category->getName(), null, [], 'far fa-arrow-alt-circle-right');
+                    $categoryItem = new MenuItemModel($this->slugify($category->getName()), $category->getName(), null);
                     $articles = $category->getActiveJavaArticles();
                     if ($articles->isEmpty()) {
                         continue;
@@ -116,7 +109,13 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
                 }
 
                 $event->addItem($language);
-            }
+//            }
+
+            $admin = new MenuItemModel('admin', 'Manage Curriculum', null, [], true);
+            $admin->addChild(new MenuItemModel('categories', 'Categories', 'java_article_category_index'));
+            $admin->addChild(new MenuItemModel('articles', 'Topics', 'java_article_index'));
+
+            $event->addItem($admin);
 
             $this->activateByRoute(
                 $event->getRequest()->get('_route'),

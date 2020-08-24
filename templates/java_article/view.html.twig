@@ -5,24 +5,20 @@
 {% block page_subtitle %}{% endblock %}
 
 {% block page_content %}
-<div class="form-main">
-    {{ form_start(form) }}
-
-    <div class="row">
-
+    <div class="form-main">
+        {{ form_start(form) }}
+        <div class="row">
             <div class="col-md-6 col-xs-12 codepanel">
-<div class="row">
-                {{ form_row(form.code, {'attr': {'class': 'form-control'}}) }}
-</div>
+                <div class="row">
+                    {{ form_row(form.code, {'attr': {'class': 'form-control'}}) }}
+                </div>
             </div>
             <div class="col-md-6 col-xs-12 resultspanel">
-<div class="row">
-                {{ form_row(form.output, {'attr': {'class': 'form-control'}}) }}
-</div>
+                <div class="row">
+                    {{ form_row(form.output, {'attr': {'class': 'form-control'}}) }}
+                </div>
             </div>
-
+        </div>
+        {{ form_end(form) }}
     </div>
-
-    {{ form_end(form) }}
-</div>
 {% endblock %}

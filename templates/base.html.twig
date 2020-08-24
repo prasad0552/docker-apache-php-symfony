@@ -6,89 +6,6 @@
     {{ encore_entry_link_tags('app') }}
     <!-- Renders a link tag (if your module requires any CSS)
          <link rel="stylesheet" href="/build/app.css"> -->
-<style>
-.sidebarheading{ font-size:20px; padding:10px; margin:0; font-style:italic;}
-.sidebarwrap, .sidebarwrap *{ box-sizing:border-box}
-.sidebarUL{ display: flex;
-    align-items: center;
-    margin: 0;
-    padding: 0; flex-wrap: wrap;}
-.sidebarUL li{width:33%; list-style:none;padding: 4px;}
-.sidebarUL li a{    
-    height: 100%;
-    border: 1px solid #ccc;
-    width: 100%;
-    display: block;
-    border-radius: 4px;
-    background: #fff;
-    text-align: center;
-    min-height: 50px; padding:14px 5px 0 5px; color:#000 !important; cursor:pointer
- }
- .sidebarUL li a.active{ background:#e1e6ea; color:#000}
-.content-header{ padding: 10px 15px 10px;background: #fafafa!important;}
-.logo-lg{ color:#ccf285;font-weight: 600;}
-.content-wrapper{ background:#fff !important}
-.content{ background:#fefefe;padding-top: 0;}
-
-.codepanel label ,.resultspanel label{ background:#f2f2f2; padding:10px 10px; border-bottom:0px solid #ccc; float:left; width:100%; margin:1px 0 0 0;} 
-.codepanel .form-group,.resultspanel .form-group{padding:0 0px 0 5px;  }
-.sidebar-menu>li {
-    
-    background: #19a4dd;
-    background: #19a4dd;
-    border-radius: 4px;
-    margin-bottom: 5px;
-}
-.skin-blue .sidebar-menu>li a {
-    color: #fff;
-}
-
-.skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li.menu-open>a, .skin-blue .sidebar-menu>li:hover>a {
-    color: #fff;
-    background: #19a4dd;
-}
-.wrapper{ background:#fff !important}
-.skin-blue .sidebar-menu>li>.treeview-menu {
-    margin: 0;
-    background: #107eab;
-    }
-    .skin-blue .sidebar-menu .treeview-menu>li>a {
-    color: #fff;
-}
-.btnswrap{ margin:0; padding:0; list-style:none; display:flex; flex-wrap:wrap;}
-.btnswrap.plr10{ padding-left:10px; padding-right:10px;}
-.btnswrap li{width: 100%;}
-.btnswrap a{    color: #fff !important;
-    background: #19a4dd;
-    border-radius: 4px;
-    padding: 10px;
-    width: 100%;
-    float: left;
-    margin: 0 0 2px 0;}
-.sideaccrodian > div{ display:none;}
-.sideaccrodian .sidebarheading{  padding:10px 0;}
-
-.sideaccrodian {
-    float: left;
-    width: 100%;
-    padding: 0 10px;
-}
-.main-footer{ display:none;}
-#form_save{    margin-top: -39px;
-    float: right;    z-index: 9999;
-    position: relative; background:#5cb75a !important; border-radius:5px; border:0 !important}
-.main-header .logo{ text-align:left;}
-.codepanel textarea{ background:#002140; color:#fff }
-.sidebarUL li a > * {
-    display: block;
-    clear: both;
-}
-.blocks{ float:left; width:100%; padding-top:10px }
-.linedbtn{ border:1px solid #0395ce; padding:5px 10px; color:#8be6f4; background:none;}
-.fr{ float:right;}
-</style> 
-
-
 {% endblock %}
 
 {% block logo_mini %}<b>I</b>K{% endblock %}
@@ -102,52 +19,7 @@
 {% endblock %}
 
 {% block sidebar_nav %}
-    {{ parent() }}
-
-    
-    <div class="sidebarwrap">
-<h3 class="sidebarheading">Java Curriculum</h3>
-<ul class="sidebarUL"><li><a><span>Basics</span></a></li>
-<li><a><span>Methods</span></a></li>
-<li><a><span>Classes</span></a></li>
-<li><a><span>Classes</span></a></li>
-</ul>
-
-
-<div class="sideaccrodian">
-<!-- first-block -->
-<div>
-<h3 class="sidebarheading">Coding Topics</h3>
-<ul class="btnswrap"><li><a href="javascript:;" class="btns">Syntax</a></li>
-<li><a href="javascript:;" class="btns">Syntax</a></li>
-<li><a href="javascript:;" class="btns">Syntax</a></li></ul>
-
-</div>
-<!-- first-block -->
-
-
-<!-- 2nd-block -->
-<div>
-<h3 class="sidebarheading">Coding Topics</h3>
-<ul class="btnswrap"><li><a href="javascript:;" class="btns">Syntax</a></li>
-<li><a href="javascript:;" class="btns">Syntax</a></li>
-<li><a href="javascript:;" class="btns">Syntax</a></li></ul>
-</div>
-<!-- 2nd-block -->
-</div>
-   </div>
-
-<div class="blocks">
-<h3 class="sidebarheading">Manage Topics</h3>
-<ul class="btnswrap plr10"><li><a href="javascript:;" class="btns">Manage Content <i class="fa fa-arrows-alt fr"></i></a></li>
-<li><a href="javascript:;" class="btns">Manage Categories</a></li>
-</ul>
-
-</div>
-
-
-
-
+    {{ render(controller('App\\Controller\\SidebarController::menuAction', {'request':app.request})) }}
 {% endblock %}
 
 {% block breadcrumb %}{% endblock %}
@@ -155,31 +27,29 @@
     <!-- Renders app.js & a webpack runtime.js file
         <script src="/build/runtime.js"></script>
         <script src="/build/app.js"></script> -->
-
-
-
     {{ parent() }}
     {{ encore_entry_script_tags('app') }}
     {% include 'includes/javascript.html.twig' %}
-    <script>
-$(document).on('click','.sidebarUL li a',function(){
-var i=$(this).closest('li').index();
-$('.sidebarUL li a').removeClass('active');
-$(this).addClass('active');
-$('.sideaccrodian >div').hide();
-$('.sideaccrodian >div').eq(i).show();
-});
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        // $('.sidebar__ul a').click(function (e) {
+        //     e.preventDefault();
+        //     $(this).tab('show');
+        // });
 
-$(document).ready(function(){
+        $(document).on('click', '.sidebar__ul li a', function () {
+            var i = $(this).closest('li').index();
+            $('.sidebar__ul li a').removeClass('active');
+            $(this).addClass('active');
+            $('.sidebar__accordion >div').hide();
+            $('.sidebar__accordion >div').eq(i).show();
+        });
 
-if($('.form-main').length)
-{ 
-
-$('.form-main form').prepend(
-$('#form_save'))
-}
-
-})
-</script>
+        $(document).ready(function () {
+            if ($('.form-main').length) {
+                $('.form-main form').prepend($('#form_save'))
+            }
+        });
+    </script>
 {% endblock %}
 

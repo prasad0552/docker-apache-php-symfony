@@ -1,0 +1,7 @@
+<!-- sidebar menu: : style can be found in sidebar.less -->
+{% from "Macros/menu.html.twig" import menu_item %}
+    {% for item in menu %}
+            <div class="sidebarwrap">
+                {{ menu_item(item) }}
+            </div>
+    {% endfor %}

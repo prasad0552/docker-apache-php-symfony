@@ -239,3 +239,9 @@ php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate
 ```
 ssh -i "aspirant-soft-solutions.pem" ubuntu@ec2-13-233-143-50.ap-south-1.compute.amazonaws.com
+
+## Yarn installation
+
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update && sudo apt install yarn
