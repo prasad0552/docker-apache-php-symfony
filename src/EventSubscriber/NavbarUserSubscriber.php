@@ -39,7 +39,6 @@ class NavbarUserSubscriber implements EventSubscriberInterface
     {
         return [
             NavbarUserEvent::class => ['onShowUser', 100],
-            SidebarUserEvent::class => ['onShowUser', 100],
         ];
     }
 
