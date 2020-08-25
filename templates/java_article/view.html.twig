@@ -1,12 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block page_title %}{{ java_article.title }}{% endblock %}
+{% block page_title %}{{ article.title }}{% endblock %}
 
 {% block page_subtitle %}{% endblock %}
 
 {% block page_content %}
     <div class="form-main">
         {{ form_start(form) }}
+        <button class="btn-primary btn">{{ button_label|default('Run') }}</button>
+        {% if article.referenceLink %}
+        <a class="btn" href="{{ article.referenceLink }}" target="_blank">View Topic</a>
+        {% endif %}
         <div class="row">
             <div class="col-md-6 col-xs-12 codepanel">
                 <div class="row">

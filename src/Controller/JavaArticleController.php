@@ -84,9 +84,9 @@ class JavaArticleController extends AbstractController
             ->add('output', TextareaType::class, [
                 'required' => false,
                 'attr' => ['class' => 'tinymce', 'rows' => 15]
-            ])
-            ->add('save', SubmitType::class, ['label' => 'Run'])
-            ->getForm();
+            ])->getForm();
+
+//            ->add('save', SubmitType::class, ['label' => 'Run'])
 
 //        ->add('input', TextareaType::class, [
 //        'required' => false,
@@ -127,7 +127,7 @@ class JavaArticleController extends AbstractController
         }
 
         return $this->render('java_article/view.html.twig', [
-            'java_article' => $javaArticle,
+            'article' => $javaArticle,
             'form' => $form->createView(),
         ]);
     }
