@@ -224,7 +224,7 @@ li.user-menu {
     margin-left: 0
 }
 
-header .nav a.btn {
+header .nav a.btn, a.btn, .btn {
     background: none !important;
     color: #3f2ecc !important;
     border-radius: 10px;
@@ -240,4 +240,8 @@ header .nav a.btn {
     background: #002140;
     color: #fff;
     min-height: calc(100vh - 154px);
+}
+
+.inner {
+    display: inline-block;
 }

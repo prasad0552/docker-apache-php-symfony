@@ -3,9 +3,9 @@
 {% block page_title %}Edit JavaArticle{% endblock %}
 
 {% block page_content %}
+<div class="outer">
     {{ include('java_article/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('java_article_index') }}">back to list</a>
-
+    <div class="inner"><a class="btn" href="{{ path('java_article_index') }}">back to list</a></div>
     {{ include('java_article/_delete_form.html.twig') }}
+</div>
 {% endblock %}
