@@ -239,7 +239,7 @@ header .nav a.btn, a.btn, .btn {
 .codepanel textarea{
     background: #002140;
     color: #fff;
-
+    min-height: calc(100vh - 154px);
 }
 
 .resultspanel textarea {
