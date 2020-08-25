@@ -24,7 +24,7 @@ class NavbarController extends \KevinPapst\AdminLTEBundle\Controller\NavbarContr
 
         if ($userEvent instanceof ShowUserEvent && null !== $userEvent->getUser()) {
             return $this->render(
-                '@AdminLTE/Navbar/user.html.twig',
+                'Navbar/user.html.twig',
                 [
                     'user' => $userEvent->getUser(),
                     'links' => $userEvent->getLinks(),

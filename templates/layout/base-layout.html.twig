@@ -26,23 +26,20 @@ skin-blue, skin-black, skin-purple, skin-yellow, skin-red, skin-green
 Apply one or more of the following classes for the layout options:
 fixed, layout-boxed, layout-top-nav, sidebar-collapse, sidebar-mini
 #}
-<body{% block body_start %}{% endblock %} class="hold-transition {{ admin_lte_context.skin|default("")|body_class }} {% if app.user is null %} nosidebar {% endif %}">
+<body{% block body_start %}{% endblock %}
+    class="hold-transition {{ admin_lte_context.skin|default("")|body_class }} {% if app.user is null %} nosidebar {% endif %}">
 {% block after_body_start %}{% endblock %}
 <div class="wrapper">
     <header class="main-header">
         <a href="{% block logo_path %}{{ path('adminlte_welcome'|route_alias) }}{% endblock %}" class="logo">
-            <span class="logo-mini">
-                {% block logo_mini %}<b>A</b>LT{% endblock %}
-            </span>
-            <span class="logo-lg">
-               {% block logo_large %} <b>Admin</b>LTE {% endblock %}
-            </span>
+            <img width="200" height="65" src="https://it-kids.com/wp-content/uploads/2020/06/itkids.png"
+                 class="image wp-image-1495  attachment-full size-full" alt="" style="max-width: 100%; height: auto;">
         </a>
 
         <nav class="navbar navbar-static-top" role="navigation">
             {% block navbar_toggle %}
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-                    <span class="sr-only">{{ 'Toggle navigation'|trans({}, 'AdminLTEBundle')  }}</span>
+                    <span class="sr-only">{{ 'Toggle navigation'|trans({}, 'AdminLTEBundle') }}</span>
                 </a>
             {% endblock %}
             <div class="navbar-custom-menu">
@@ -58,7 +55,7 @@ fixed, layout-boxed, layout-top-nav, sidebar-collapse, sidebar-mini
                         {{ render(controller('KevinPapst\\AdminLTEBundle\\Controller\\NavbarController::tasksAction')) }}
                     {% endblock %}
                     {% block navbar_user %}
-                        {{ render(controller('KevinPapst\\AdminLTEBundle\\Controller\\NavbarController::userAction')) }}
+                        {{ render(controller('App\\Controller\\NavbarController::userAction')) }}
                     {% endblock %}
                     {% block navbar_end %}{% endblock %}
                     {% block navbar_control_sidebar_toggle %}
