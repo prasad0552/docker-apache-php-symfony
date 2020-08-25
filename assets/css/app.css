@@ -215,3 +215,29 @@ body {
 li.user-menu {
     background-color: #19a4dd !important;
 }
+
+.nosidebar .main-sidebar {
+    display: none;
+}
+
+.nosidebar .content-wrapper, .nosidebar .main-footer {
+    margin-left: 0
+}
+
+header .nav a.btn {
+    background: none !important;
+    color: #3f2ecc !important;
+    border-radius: 10px;
+    padding: 4px;
+    min-width: 100px;
+    margin-top: 8px;
+    margin-right: 10px;
+    border: 2px solid #c9c9c9;
+}
+
+
+.codepanel textarea, .resultspanel textarea {
+    background: #002140;
+    color: #fff;
+    min-height: calc(100vh - 154px);
+}
