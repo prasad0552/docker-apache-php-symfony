@@ -71,7 +71,7 @@ fixed, layout-boxed, layout-top-nav, sidebar-collapse, sidebar-mini
     </header>
 
     <aside class="main-sidebar">
-        <section class="sidebar">
+        <section class="sidebar" style="padding-top: 40px;height: auto;">
             {% block sidebar_user %}
                 {% if app.user is not null and is_granted('IS_AUTHENTICATED_FULLY') %}
                     {{ render(controller('KevinPapst\\AdminLTEBundle\\Controller\\SidebarController::userPanelAction')) }}
