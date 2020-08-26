@@ -3,6 +3,6 @@
 {% block page_title %}New Java Article{% endblock %}
 
 {% block page_content %}
+    <a class="btn" href="{{ path('java_article_index') }}">Back</a>
     {{ include('java_article/_form.html.twig') }}
-    <a class="btn" href="{{ path('java_article_index') }}">back to list</a>
 {% endblock %}

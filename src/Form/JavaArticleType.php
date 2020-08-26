@@ -23,7 +23,7 @@ class JavaArticleType extends AbstractType
                 'placeholder' => 'Choose a Category'
             ])
             ->add('title')
-            ->add('description')
+//            ->add('description')
             ->add('code', TextareaType::class, ['attr' => ['class' => 'tinymce', 'rows' => 15]])
             ->add('slug')
             ->add('className')

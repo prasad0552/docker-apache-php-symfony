@@ -266,7 +266,7 @@ header .nav a.btn {
     height: 70px
 }
 
-.btn {
+.content-wrapper .btn, .actionbtns {
     float: right;
     position: relative;
     top: -47px;
