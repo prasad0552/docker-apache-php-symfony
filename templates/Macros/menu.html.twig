@@ -3,12 +3,13 @@
     {% if item.route or item.hasChildren %}
         <h3 class=" {{ item.isActive ? 'active' : '' }} sidebar__heading">
             {#            <a href="{{ item.hasChildren ? '#': '/' in item.route ? item.route : path(item.route|route_alias, item.routeArgs) }}">#}
-            {% if item.icon %} <i class="{{ item.icon }}"></i> {% endif %}
+
             {% if item.badge is not same as(false) %}
                 <small class="label pull-right bg-{{ item.badgeColor }}">{{ item.badge }}</small>
             {% endif %}
             {#                {% if item.hasChildren %}<i class="fas fa-angle-left pull-right"></i>{% endif %}#}
             <span>{{ item.label|trans }}</span>
+            {% if item.icon %} <a href="{{ item.refLink }}"><i class="{{ item.icon }}"></i></a> {% endif %}
             {#            </a>#}
         </h3>
 

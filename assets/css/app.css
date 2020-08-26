@@ -85,6 +85,10 @@ body {
     padding-top: 0;
 }
 
+.resultspanel {
+    top: -39px;
+}
+
 .codepanel label, .resultspanel label {
     background: #f2f2f2;
     padding: 10px 10px;
@@ -236,7 +240,7 @@ header .nav a.btn, a.btn, .btn {
 }
 
 
-.codepanel textarea{
+.codepanel textarea {
     background: #002140;
     color: #fff;
     min-height: calc(100vh - 154px);
@@ -248,4 +252,24 @@ header .nav a.btn, a.btn, .btn {
 
 .inner {
     display: inline-block;
+}
+
+.logo-lg {
+    margin-top: 9px
+}
+
+header .nav a.btn {
+    margin-top: 20px;
+}
+
+.main-header .logo {
+    height: 70px
+}
+
+.btn {
+    float: right;
+    position: relative;
+    top: -47px;
+    margin-right: 0;
+    margin-left: 10px;
 }
