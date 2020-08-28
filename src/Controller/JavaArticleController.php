@@ -87,17 +87,9 @@ class JavaArticleController extends AbstractController
                 'wrapper_attr' => array(), // aceeditor wrapper html attributes.
                 'mode' => 'ace/mode/java', // every single default mode must have ace/mode/* prefix
                 'theme' => 'ace/theme/cobalt', // every single default theme must have ace/theme/* prefix
-                'tab_size' => null,
-                'read_only' => null,
-                'use_soft_tabs' => null,
-                'use_wrap_mode' => null,
-                'show_print_margin' => null,
-                'show_invisibles' => null,
-                'highlight_active_line' => null,
                 'options_enable_basic_autocompletion' => true,
                 'options_enable_live_autocompletion' => true,
-                'options_enable_snippets' => false,
-                'keyboard_handler' => null
+                'options_enable_snippets' => false
             ))
             ->add('output', TextareaType::class, [
                 'required' => false,
