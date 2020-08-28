@@ -17,7 +17,9 @@ import 'codemirror/theme/cobalt.css'
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 import $ from 'jquery';
 
-CodeMirror.fromTextArea($("#form_code"), {
+// console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+
+CodeMirror.fromTextArea(document.getElementById("form_code"), {
     lineNumbers: true,
     mode: "clike",
     theme: 'cobalt'
