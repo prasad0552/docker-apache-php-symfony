@@ -36,6 +36,7 @@
 		"jmose/command-scheduler-bundle": "^2.2",
 		"kevinpapst/adminlte-bundle": "^3.0",
 		"knplabs/knp-menu-bundle": "^3.0",
+		"norberttech/aceeditor-bundle": "5.x-dev",
 		"sensio/framework-extra-bundle": "^5.5",
 		"sensiolabs/security-checker": "^6.0",
 		"stof/doctrine-extensions-bundle": "^1.4",
