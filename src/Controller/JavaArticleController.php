@@ -82,10 +82,8 @@ class JavaArticleController extends AbstractController
         return $this->createFormBuilder($javaArticle)
             ->add('language', HiddenType::class, ['data' => 'java'])
 //            ->add('code', TextareaType::class, ['attr' => ['class' => 'tinymce', 'rows' => 15]])
-            ->add('output', TextareaType::class, [
+            ->add('code', AceEditorType::class, array(
                 'required' => false,
-                'attr' => ['class' => 'tinymce', 'rows' => 15]
-            ])->add('code', AceEditorType::class, array(
                 'wrapper_attr' => array(), // aceeditor wrapper html attributes.
                 'mode' => 'ace/mode/java', // every single default mode must have ace/mode/* prefix
                 'theme' => 'ace/theme/cobalt', // every single default theme must have ace/theme/* prefix
@@ -100,7 +98,11 @@ class JavaArticleController extends AbstractController
                 'options_enable_live_autocompletion' => true,
                 'options_enable_snippets' => false,
                 'keyboard_handler' => null
-            ))->getForm();
+            ))
+            ->add('output', TextareaType::class, [
+                'required' => false,
+                'attr' => ['class' => 'tinymce', 'rows' => 15]
+            ])->getForm();
 
 //            ->add('save', SubmitType::class, ['label' => 'Run'])
 
