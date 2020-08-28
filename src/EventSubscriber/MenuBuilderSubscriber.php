@@ -11,6 +11,7 @@ namespace App\EventSubscriber;
 
 use App\Repository\JavaArticleCategoryRepository;
 use App\Repository\JavaArticleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use KevinPapst\AdminLTEBundle\Event\BreadcrumbMenuEvent;
 use KevinPapst\AdminLTEBundle\Event\SidebarMenuEvent;
@@ -102,6 +103,7 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
                     if ($articles->isEmpty()) {
                         continue;
                     }
+
                     foreach ($articles as $article) {
                         $categoryItem->addChild(new MenuItemModel($article->getSlug(), $article->getTitle(), 'java_article_view', ['id' => $article->getId()], $article->getCode()));
                     }

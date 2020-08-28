@@ -36,6 +36,7 @@ class JavaArticleCategory
 
     /**
      * @ORM\OneToMany(targetEntity=JavaArticle::class, mappedBy="category")
+     * @ORM\OrderBy({"sort_order" = "ASC"})
      */
     private $javaArticles;
 
