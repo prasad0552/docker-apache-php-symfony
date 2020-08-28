@@ -53,7 +53,7 @@
                             {% endif %}
                             <ul class="btnswrap">
                                 {% for leaf in child.children %}
-                                    <li class="{{ leaf.isActive ? 'active':'' }}" id="{{ leaf.identifier }}">
+                                    <li draggable="true" class="{{ leaf.isActive ? 'active':'' }}" id="{{ leaf.identifier }}">
                                         <a class="btns"
                                            href="{{ '/' in leaf.route ? leaf.route : path(leaf.route|route_alias, leaf.routeArgs) }}">
                                             {{ menu.menu_item_content(leaf, '') }}
