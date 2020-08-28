@@ -18,9 +18,27 @@ import 'codemirror/theme/cobalt.css'
 import $ from 'jquery';
 
 // console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+// mode: "clike",
 
 CodeMirror.fromTextArea(document.getElementById("form_code"), {
     lineNumbers: true,
-    mode: "clike",
     theme: 'cobalt'
+});
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    function handleDragStart(event) {
+        event.dataTransfer.effectAllowed = 'move';
+        event
+            .dataTransfer
+            .setData('text/plain', event.target.getAttribute("data-codesnippet"));
+    }
+
+    let items = document.querySelectorAll('.menu-item');
+    items.forEach(function (item) {
+        item.addEventListener('dragstart', handleDragStart, false);
+        // item.addEventListener('dragover', handleDragOver, false);
+        // item.addEventListener('dragenter', handleDragEnter, false);
+        // item.addEventListener('dragleave', handleDragLeave, false);
+        // item.addEventListener('dragend', handleDragEnd, false);
+    });
 });

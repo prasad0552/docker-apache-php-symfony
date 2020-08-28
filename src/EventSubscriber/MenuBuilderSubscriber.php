@@ -103,7 +103,7 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
                         continue;
                     }
                     foreach ($articles as $article) {
-                        $categoryItem->addChild(new MenuItemModel($article->getSlug(), $article->getTitle(), 'java_article_view', ['id' => $article->getId()]));
+                        $categoryItem->addChild(new MenuItemModel($article->getSlug(), $article->getTitle(), 'java_article_view', ['id' => $article->getId()], $article->getCode()));
                     }
                     $language->addChild($categoryItem);
                 }
