@@ -15,7 +15,7 @@ import '../css/app.css';
 
 import CodeMirror from 'codemirror';
 
-CodeMirror.fromTextArea(document.getElementById("codepanel__textarea"), {
+CodeMirror.fromTextArea(document.getElementById("form_code"), {
     lineNumbers: true,
     mode: "text/x-java"
 });
