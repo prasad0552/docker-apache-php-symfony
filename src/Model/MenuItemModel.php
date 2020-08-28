@@ -16,7 +16,7 @@ class MenuItemModel extends \KevinPapst\AdminLTEBundle\Model\MenuItemModel
     /**
      * @return null
      */
-    public function getCodeSnippet()
+    public function getcodeSnippet()
     {
         return $this->codeSnippet;
     }
