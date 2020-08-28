@@ -20,7 +20,7 @@ import $ from 'jquery';
 // console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
 
 
-CodeMirror.fromTextArea(document.getElementById("form_code"), {
+CodeMirror.fromTextArea($("#form_code"), {
     lineNumbers: true,
     mode: "clike",
     theme: 'cobalt'
