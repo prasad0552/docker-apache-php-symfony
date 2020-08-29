@@ -27,7 +27,7 @@ import $ from 'jquery';
 
 document.addEventListener('DOMContentLoaded', (event) => {
     function handleDragStart(event) {
-        console.log(event.target.getAttribute("data-codesnippet"));
+        console.log(event.target);
         ev.dataTransfer.dropEffect = "copy";
         event.dataTransfer.effectAllowed = 'move';
         event.dataTransfer

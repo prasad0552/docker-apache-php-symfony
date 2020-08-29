@@ -53,14 +53,14 @@
                             {% endif %}
                             <ul class="btnswrap">
                                 {% for leaf in child.children %}
-                                    <li class="{{ leaf.isActive ? 'active':'' }}" id="{{ leaf.identifier }}">
+                                    <li class="{{ leaf.isActive ? 'active':'' }} menu-item" id="{{ leaf.identifier }}">
                                         <a {% if leaf.draggable %}draggable="true" {% endif %}
                                            data-codesnippet="{{ leaf.codeSnippet }}"
                                            data-draggable="{{ leaf.draggable }}"
                                            class="btns{% if leaf.draggable %} menu-item{% endif %}"
                                            href="{{ '/' in leaf.route ? leaf.route : path(leaf.route|route_alias, leaf.routeArgs) }}">
                                             <span>{{ leaf.label|trans }}</span>
-                                            <i class="{% if leaf.draggable %} fas fa fa-arrows-alt{% endif %}"></i>
+{#                                            <i class="{% if leaf.draggable %} fas fa fa-arrows-alt{% endif %}"></i>#}
                                         </a>
                                     </li>
                                 {% endfor %}
