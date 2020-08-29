@@ -25,9 +25,10 @@ class JavaArticleType extends AbstractType
             ->add('title')
 //            ->add('description')
             ->add('code', TextareaType::class, ['attr' => ['class' => 'tinymce', 'rows' => 15]])
+            ->add('codeSnippet', TextareaType::class, ['attr' => ['rows' => 15]])
             ->add('slug')
             ->add('className')
-            ->add('referenceLink', UrlType::class)
+            ->add('referenceLink', UrlType::class, ['required' => false])
             ->add('sort_order')
             ->add('status', ChoiceType::class, [
                 'choices' => [

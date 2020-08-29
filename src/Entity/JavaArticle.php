@@ -83,6 +83,11 @@ class JavaArticle
      */
     private $referenceLink;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $codeSnippet;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -240,6 +245,18 @@ class JavaArticle
     public function setReferenceLink(?string $referenceLink): self
     {
         $this->referenceLink = $referenceLink;
+
+        return $this;
+    }
+
+    public function getCodeSnippet(): ?string
+    {
+        return $this->codeSnippet;
+    }
+
+    public function setCodeSnippet(?string $codeSnippet): self
+    {
+        $this->codeSnippet = $codeSnippet;
 
         return $this;
     }
