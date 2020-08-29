@@ -3,13 +3,13 @@
     {% if item.route or item.hasChildren %}
         <h3 class=" {{ item.isActive ? 'active' : '' }} sidebar__heading">
             {#            <a href="{{ item.hasChildren ? '#': '/' in item.route ? item.route : path(item.route|route_alias, item.routeArgs) }}">#}
-
             {% if item.badge is not same as(false) %}
                 <small class="label pull-right bg-{{ item.badgeColor }}">{{ item.badge }}</small>
             {% endif %}
             {#                {% if item.hasChildren %}<i class="fas fa-angle-left pull-right"></i>{% endif %}#}
             <span>{{ item.label|trans }}</span>
-            {% if item.icon %} <a href="{{ item.refLink }}"><i class="{{ item.icon }}"></i></a> {% endif %}
+            {% if item.pdfLink %} <a target="_blank" href="{{ item.pdfLink }}"><i
+                    class="fas fa fa-file-pdf"></i></a> {% endif %}
             {#            </a>#}
         </h3>
 
@@ -53,10 +53,14 @@
                             {% endif %}
                             <ul class="btnswrap">
                                 {% for leaf in child.children %}
-                                    <li class="{{ leaf.isActive ? 'active':'' }} menu-item" id="{{ leaf.identifier }}">
-                                        <a draggable="true" data-codesnippet="{{ leaf.codeSnippet }}" class="btns menu-item"
+                                    <li class="{{ leaf.isActive ? 'active':'' }}" id="{{ leaf.identifier }}">
+                                        <a {% if leaf.draggable %}draggable="true" {% endif %}
+                                           data-codesnippet="{{ leaf.codeSnippet }}"
+                                           data-draggable="{{ leaf.draggable }}"
+                                           class="btns{% if leaf.draggable %} menu-item{% endif %}"
                                            href="{{ '/' in leaf.route ? leaf.route : path(leaf.route|route_alias, leaf.routeArgs) }}">
-                                            {{ menu.menu_item_content(leaf, '') }}
+                                            <span>{{ leaf.label|trans }}</span>
+                                            <i class="{% if leaf.draggable %} fas fa fa-arrows-alt{% endif %}"></i>
                                         </a>
                                     </li>
                                 {% endfor %}
@@ -74,9 +78,6 @@
 {% endmacro %}
 
     {% macro menu_item_content(item, defaultIcon) %}
-        <i class="{{ item.icon|default(defaultIcon) }}"></i>
         <span>{{ item.label|trans }}</span>
-        {% if item.badge is not same as(false) %}
-            <small class="label pull-right bg-{{ item.badgeColor }}">{{ item.badge }}</small>
-        {% endif %}
+        <i class="{{ item.icon|default(defaultIcon) }}"></i>
     {% endmacro %}

@@ -13,6 +13,10 @@ class MenuItemModel extends \KevinPapst\AdminLTEBundle\Model\MenuItemModel
 
     protected $codeSnippet;
 
+    protected $pdfLink;
+
+    protected $draggable;
+
     /**
      * @return null
      */
@@ -28,14 +32,26 @@ class MenuItemModel extends \KevinPapst\AdminLTEBundle\Model\MenuItemModel
         $routeArgs = [],
         $isAdmin = false,
         $snippet = null,
-        $icon = false,
-        $badge = false,
+        $pdfLink = false,
+        $draggable = false,
         $badgeColor = 'green'
     )
     {
         $this->isAdmin = $isAdmin;
         $this->codeSnippet = $snippet;
-        parent::__construct($id, $label, $route, $routeArgs, $icon, $badge, $badgeColor);
+        $this->pdfLink = $pdfLink;
+        $this->draggable = $draggable;
+        parent::__construct($id, $label, $route, $routeArgs, null, null, $badgeColor);
+    }
+
+    public function getdraggable()
+    {
+        return $this->draggable;
+    }
+
+    public function getpdfLink()
+    {
+        return $this->pdfLink;
     }
 
     public function getisAdmin()

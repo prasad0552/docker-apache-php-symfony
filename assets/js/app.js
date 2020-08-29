@@ -30,8 +30,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         console.log(event.target.getAttribute("data-codesnippet"));
         ev.dataTransfer.dropEffect = "copy";
         event.dataTransfer.effectAllowed = 'move';
-        event
-            .dataTransfer
+        event.dataTransfer
             .setData('text/plain', event.target.getAttribute("data-codesnippet"));
     }
 

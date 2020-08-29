@@ -86,7 +86,7 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
     {
         try {
             if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-                $language = new MenuItemModel('java-curriculum', 'Java Curriculum', null);
+                $language = new MenuItemModel('java-curriculum', 'Java Curriculum', null, [], false, null, '/assets/files/Adults - Java Curriculum.pdf');
                 /**
                  * @var \App\Entity\JavaArticleCategory[] $categories
                  */
@@ -105,7 +105,7 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
                     }
 
                     foreach ($articles as $article) {
-                        $categoryItem->addChild(new MenuItemModel($article->getSlug(), $article->getTitle(), 'java_article_view', ['id' => $article->getId()], false, $article->getCodeSnippet()));
+                        $categoryItem->addChild(new MenuItemModel($article->getSlug(), $article->getTitle(), 'java_article_view', ['id' => $article->getId()], false, $article->getCodeSnippet(), false, $article->getIsDraggable()));
                     }
                     $language->addChild($categoryItem);
                 }
