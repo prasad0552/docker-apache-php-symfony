@@ -84,6 +84,7 @@ class JavaArticleController extends AbstractController
 //            ->add('code', TextareaType::class, ['attr' => ['class' => 'tinymce', 'rows' => 15]])
             ->add('code', AceEditorType::class, array(
                 'required' => false,
+                'height' => "250px",
                 'wrapper_attr' => array(), // aceeditor wrapper html attributes.
                 'mode' => 'ace/mode/java', // every single default mode must have ace/mode/* prefix
                 'theme' => 'ace/theme/cobalt', // every single default theme must have ace/theme/* prefix
