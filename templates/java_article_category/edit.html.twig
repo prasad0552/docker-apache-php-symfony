@@ -3,10 +3,7 @@
 {% block page_title %}Edit Category{% endblock %}
 
 {% block page_content %}
-
+    <a class="btn" href="{{ path('java_article_category_index') }}">back to list</a>
     {{ include('java_article_category/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('java_article_category_index') }}">back to list</a>
-
     {{ include('java_article_category/_delete_form.html.twig') }}
 {% endblock %}

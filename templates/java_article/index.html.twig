@@ -12,6 +12,7 @@
             <th>Description</th>
 {#            <th>Code</th>#}
             <th>Slug</th>
+            <th>Sort Order</th>
             <th>actions</th>
         </tr>
         </thead>
@@ -23,6 +24,7 @@
                 <td>{{ java_article.description }}</td>
 {#                <td>{{ java_article.code }}</td>#}
                 <td>{{ java_article.slug }}</td>
+                <td>{{ java_article.sortorder }}</td>
                 <td>
                     <a class="fa fa-book-open" href="{{ path('java_article_show', {'id': java_article.id}) }}"></a>
                     <a class="fa fa-edit" href="{{ path('java_article_edit', {'id': java_article.id}) }}"></a>

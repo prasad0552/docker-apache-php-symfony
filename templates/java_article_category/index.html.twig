@@ -3,6 +3,7 @@
 {% block page_title %} Categories {% endblock %}
 
 {% block page_content %}
+    <a class="btn" href="{{ path('java_article_category_new') }}">Create new</a>
     <table class="table">
         <thead>
             <tr>
@@ -21,8 +22,8 @@
                 <td>{{ java_article_category.Description }}</td>
                 <td>{{ java_article_category.sortOrder }}</td>
                 <td>
-                    <a href="{{ path('java_article_category_show', {'id': java_article_category.id}) }}">show</a>
-                    <a href="{{ path('java_article_category_edit', {'id': java_article_category.id}) }}">edit</a>
+                    <a class="fa fa-book-open" href="{{ path('java_article_category_show', {'id': java_article_category.id}) }}">show</a>
+                    <a class="fa fa-edit" href="{{ path('java_article_category_edit', {'id': java_article_category.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -32,6 +33,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('java_article_category_new') }}">Create new</a>
 {% endblock %}
