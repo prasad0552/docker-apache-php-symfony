@@ -86,41 +86,46 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
     {
         try {
             if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-                $language = new MenuItemModel('java-curriculum', 'Java Curriculum', null, [], false, null, '/assets/files/Adults - Java Curriculum.pdf');
-                /**
-                 * @var \App\Entity\JavaArticleCategory[] $categories
-                 */
-                $categories = $this->categoryRepository->createQueryBuilder('category')
-                    ->andWhere('category.status = :status')
-                    ->setParameter('status', 1)
-                    ->addOrderBy('category.sort_order')
-                    ->getQuery()
-                    ->execute();
+                if ($this->security->isGranted('ROLE_USER')) {
+                    $language = new MenuItemModel('java-curriculum', 'Java Curriculum', null, [], false, null, '/assets/files/Adults - Java Curriculum.pdf');
+                    /**
+                     * @var \App\Entity\JavaArticleCategory[] $categories
+                     */
+                    $categories = $this->categoryRepository->createQueryBuilder('category')
+                        ->andWhere('category.status = :status')
+                        ->setParameter('status', 1)
+                        ->addOrderBy('category.sort_order')
+                        ->getQuery()
+                        ->execute();
 
-                foreach ($categories as $category) {
-                    $categoryItem = new MenuItemModel($this->slugify($category->getName()), $category->getName(), null);
-                    $articles = $category->getActiveJavaArticles();
-                    if ($articles->isEmpty()) {
-                        continue;
+                    foreach ($categories as $category) {
+                        $categoryItem = new MenuItemModel($this->slugify($category->getName()), $category->getName(), null);
+                        $articles = $category->getActiveJavaArticles();
+                        if ($articles->isEmpty()) {
+                            continue;
+                        }
+
+                        foreach ($articles as $article) {
+                            $categoryItem->addChild(new MenuItemModel($article->getSlug(), $article->getTitle(), 'java_article_view', ['id' => $article->getId()], false, $article->getCodeSnippet(), false, $article->getIsDraggable()));
+                        }
+                        $language->addChild($categoryItem);
                     }
 
-                    foreach ($articles as $article) {
-                        $categoryItem->addChild(new MenuItemModel($article->getSlug(), $article->getTitle(), 'java_article_view', ['id' => $article->getId()], false, $article->getCodeSnippet(), false, $article->getIsDraggable()));
-                    }
-                    $language->addChild($categoryItem);
+                    $event->addItem($language);
                 }
 
-                $event->addItem($language);
+                if ($this->security->isGranted('ROLE_ADMIN')) {
+                    $admin = new MenuItemModel('admin', 'Manage Curriculum', null, [], true);
+                    $admin->addChild(new MenuItemModel('categories', 'Categories', 'java_article_category_index'));
+                    $admin->addChild(new MenuItemModel('articles', 'Topics', 'java_article_index'));
 
-                $admin = new MenuItemModel('admin', 'Manage Curriculum', null, [], true);
-                $admin->addChild(new MenuItemModel('categories', 'Categories', 'java_article_category_index'));
-                $admin->addChild(new MenuItemModel('articles', 'Topics', 'java_article_index'));
-
-                $event->addItem($admin);
+                    $event->addItem($admin);
+                }
             }
 
             $this->activateByRoute(
                 $event->getRequest()->get('_route'),
+                $event->getRequest()->attributes->all(),
                 $event->getItems()
             );
         } catch (RuntimeError $exception) {
@@ -128,29 +133,19 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
         } catch (RouteNotFoundException $exception) {
 
         }
-
-//            if ($this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-//                $event->addItem(
-//                    new MenuItemModel('logout', 'Logout', 'logout', [], 'fas fa-sign-out-alt')
-//                );
-//            } else {
-//                $event->addItem(
-//                    new MenuItemModel('login', 'Login', 'login', [], 'fas fa-sign-in-alt')
-//                );
-//            }
-
     }
 
     /**
      * @param string $route
+     * @param [] $items
      * @param MenuItemModel[] $items
      */
-    protected function activateByRoute($route, $items)
+    protected function activateByRoute($route, $attributes, $items)
     {
         foreach ($items as $item) {
             if ($item->hasChildren()) {
-                $this->activateByRoute($route, $item->getChildren());
-            } elseif ($item->getRoute() == $route) {
+                $this->activateByRoute($route, $attributes, $item->getChildren());
+            } elseif ($item->getRoute() == $route && $attributes == $item->getRouteArgs()) {
                 $item->setIsActive(true);
             }
         }
