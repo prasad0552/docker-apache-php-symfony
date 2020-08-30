@@ -3,16 +3,17 @@
 {% block page_title %}Java Articles{% endblock %}
 
 {% block page_content %}
+    <a class="btn" href="{{ path('java_article_new') }}">Create new</a>
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Code</th>
-                <th>Slug</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Description</th>
+{#            <th>Code</th>#}
+            <th>Slug</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for java_article in java_articles %}
@@ -20,11 +21,11 @@
                 <td>{{ java_article.id }}</td>
                 <td>{{ java_article.title }}</td>
                 <td>{{ java_article.description }}</td>
-                <td>{{ java_article.code }}</td>
+{#                <td>{{ java_article.code }}</td>#}
                 <td>{{ java_article.slug }}</td>
                 <td>
-                    <a href="{{ path('java_article_show', {'id': java_article.id}) }}">show</a>
-                    <a href="{{ path('java_article_edit', {'id': java_article.id}) }}">edit</a>
+                    <a class="fa fa-book-open" href="{{ path('java_article_show', {'id': java_article.id}) }}"></a>
+                    <a class="fa fa-edit" href="{{ path('java_article_edit', {'id': java_article.id}) }}"></a>
                 </td>
             </tr>
         {% else %}
@@ -34,6 +35,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('java_article_new') }}">Create new</a>
 {% endblock %}
