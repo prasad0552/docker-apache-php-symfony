@@ -81,7 +81,6 @@ class JavaArticleController extends AbstractController
     {
         return $this->createFormBuilder($javaArticle)
             ->add('language', HiddenType::class, ['data' => 'java'])
-//            ->add('code', TextareaType::class, ['attr' => ['class' => 'tinymce', 'rows' => 15]])
             ->add('code', AceEditorType::class, array(
                 'required' => false,
                 'height' => "480px",
@@ -97,51 +96,6 @@ class JavaArticleController extends AbstractController
                 'required' => false,
                 'attr' => ['class' => 'tinymce', 'rows' => 15]
             ])->getForm();
-
-//            ->add('save', SubmitType::class, ['label' => 'Run'])
-
-//        ->add('input', TextareaType::class, [
-//        'required' => false,
-//        'disabled' => true
-//    ])
-    }
-
-    /**
-     * @Route("/{id}/compile", name="java_article_view", methods={"GET","POST"})
-     */
-    public function compile(Request $request, JavaArticle $javaArticle): Response
-    {
-        $form = $this->getCompilerForm($javaArticle);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $javaArticle = $form->getData();
-            $obj = new Executor('java');
-            //set compilation path
-            $obj->setCompilationPath($this->appKernel->getProjectDir() . '/var/compiler');
-
-            //java
-            $java_code = $javaArticle->getCode();
-            $className = $javaArticle->getClassName();
-            $comp = $obj->compile($java_code, $className);
-
-            if (!is_array($comp)) {
-                $javaArticle->setOutput($obj->run($className) . "\n");
-            } else {
-                $output = "Compilation failed due to following error(s)." . "\n";
-                foreach ($comp as $key => $item) {
-                    $output .= str_replace('/var/www/html/var/compiler/', '', $item) . "\n";
-                }
-                $javaArticle->setOutput($output);
-            }
-            $form = $this->getCompilerForm($javaArticle);
-        }
-
-        return $this->render('java_article/view.html.twig', [
-            'article' => $javaArticle,
-            'form' => $form->createView(),
-        ]);
     }
 
     /**

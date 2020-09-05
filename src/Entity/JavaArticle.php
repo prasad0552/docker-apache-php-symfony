@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Repository\JavaArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass=JavaArticleRepository::class)
+ * @ORM\Table(name="java_article")
+ * @ORM\Entity(repositoryClass="Gedmo\Sortable\Entity\Repository\SortableRepository")
  */
 class JavaArticle
 {
@@ -33,7 +35,8 @@ class JavaArticle
     private $code;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Gedmo\Slug(fields={"title"})
      */
     private $slug;
 
@@ -58,11 +61,13 @@ class JavaArticle
     private $output;
 
     /**
+     * @Gedmo\SortablePosition
      * @ORM\Column(type="integer")
      */
     private $sort_order;
 
     /**
+     * @Gedmo\SortableGroup
      * @ORM\ManyToOne(targetEntity=JavaArticleCategory::class, inversedBy="javaArticles")
      * @ORM\JoinColumn(nullable=false)
      */

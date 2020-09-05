@@ -28,7 +28,7 @@
                 <ul class="sidebar__ul" id="{{ item.identifier }}" role="tablist">
                     {% for key, child in item.children %}
                         {% if child.hasChildren %}
-                            <li class="nav-item {{ key == 0 ? 'active':'' }}">
+                            <li class="nav-item {{ child.isActive ? 'active':'' }}">
                                 <a data-toggle="tab" href="#{{ child.identifier }}">
                                     {{ menu.menu_item_content(child, '') }}
                                 </a>
@@ -46,15 +46,15 @@
             <div class="sidebar__accordion tab-content">
                 {% for key, child in item.children %}
                     {% if child.hasChildren %}
-                        <div role="tabpanel" class="tab-pane {% if key == 0 %}in active{% endif %}"
-                             id="{{ child.identifier }}" {% if key == 0 %}in active{% endif %}>
+                        <div role="tabpanel" class="tab-pane {% if child.isActive %}in active{% endif %}"
+                             id="{{ child.identifier }}" {% if child.isActive %}in active{% endif %}>
                             {% if item.identifier == "java-curriculum" %}
                                 <h3 class="sidebar__heading">Coding Topics</h3>
                             {% endif %}
                             <ul class="btnswrap">
                                 {% for leaf in child.children %}
                                     <li class="{{ leaf.isActive ? 'active':'' }}" id="{{ leaf.identifier }}">
-                                        <a {% if leaf.draggable %}draggable="true" {% endif %}
+                                        <a {% if leaf.draggable %}draggable="true" {% else %} draggable="false" {% endif %}
                                            data-codesnippet="{{ leaf.codeSnippet }}"
                                            data-draggable="{{ leaf.draggable }}"
                                            class="btns{% if leaf.draggable %} menu-item{% endif %}"

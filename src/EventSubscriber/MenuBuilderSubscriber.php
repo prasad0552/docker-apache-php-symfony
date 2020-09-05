@@ -106,7 +106,7 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
                         }
 
                         foreach ($articles as $article) {
-                            $categoryItem->addChild(new MenuItemModel($article->getSlug(), $article->getTitle(), 'java_article_view', ['id' => $article->getId()], false, $article->getCodeSnippet(), false, $article->getIsDraggable()));
+                            $categoryItem->addChild(new MenuItemModel($article->getSlug(), $article->getTitle(), 'java_article_view', ['slug' => $article->getSlug()], false, $article->getCodeSnippet(), false, $article->getIsDraggable()));
                         }
                         $language->addChild($categoryItem);
                     }
@@ -125,7 +125,7 @@ class MenuBuilderSubscriber implements EventSubscriberInterface
 
             $this->activateByRoute(
                 $event->getRequest()->get('_route'),
-                $event->getRequest()->attributes->all(),
+                $event->getRequest()->attributes->get('_route_params'),
                 $event->getItems()
             );
         } catch (RuntimeError $exception) {

@@ -36,15 +36,17 @@ class JavaArticleRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?JavaArticle
+    /**
+     * @param $value
+     * @return JavaArticle|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findOneBySlug($value): ?JavaArticle
     {
         return $this->createQueryBuilder('j')
-            ->andWhere('j.exampleField = :val')
+            ->andWhere('j.slug = :val')
             ->setParameter('val', $value)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
 }

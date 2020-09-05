@@ -15,7 +15,7 @@ class MenuItemModel extends \KevinPapst\AdminLTEBundle\Model\MenuItemModel
 
     protected $pdfLink;
 
-    protected $draggable;
+    protected $draggable = false;
 
     /**
      * @return null

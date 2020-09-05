@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Norzechowicz\AceEditorBundle\Form\Extension\AceEditor\Type\AceEditorType;
 
 class JavaArticleType extends AbstractType
 {
@@ -24,9 +25,19 @@ class JavaArticleType extends AbstractType
             ])
             ->add('title')
 //            ->add('description')
-            ->add('code', TextareaType::class, ['attr' => ['class' => 'tinymce', 'rows' => 15]])
-            ->add('codeSnippet', TextareaType::class, ['attr' => ['rows' => 15]])
-            ->add('slug')
+            ->add('code', AceEditorType::class, array(
+                'font_size' => 14,
+                'height' => "300px",
+                'wrapper_attr' => array(), // aceeditor wrapper html attributes.
+                'mode' => 'ace/mode/java', // every single default mode must have ace/mode/* prefix
+                'theme' => 'ace/theme/cobalt', // every single default theme must have ace/theme/* prefix
+                'options_enable_basic_autocompletion' => true,
+                'options_enable_live_autocompletion' => true,
+                'options_enable_snippets' => false
+            ))
+//            ->add('code', TextareaType::class, ['attr' => ['class' => 'tinymce', 'rows' => 15]])
+            ->add('codeSnippet', TextareaType::class, ['required' => false, 'attr' => ['rows' => 15]])
+//            ->add('slug')
             ->add('className')
             ->add('referenceLink', UrlType::class, ['required' => false])
             ->add('sort_order')
