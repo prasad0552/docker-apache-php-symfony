@@ -246,7 +246,7 @@ header .nav a.btn, a.btn, .btn {
 }
 
 .resultspanel textarea {
-    /*min-height: calc(100vh - 154px);*/
+    min-height: 480px;
 }
 
 .inner {
