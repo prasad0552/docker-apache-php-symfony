@@ -40,7 +40,7 @@ class JavaController extends AbstractController
             ->add('language', HiddenType::class, ['data' => 'java'])
             ->add('code', AceEditorType::class, array(
                 'required' => false,
-                'height' => "480px",
+                'height' => "100%",
                 'font_size' => 14,
                 'wrapper_attr' => array(), // aceeditor wrapper html attributes.
                 'mode' => 'ace/mode/java', // every single default mode must have ace/mode/* prefix
