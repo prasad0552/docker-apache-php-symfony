@@ -238,7 +238,6 @@ php bin/console doctrine:database:drop --force
 php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate
 ```
-ssh -i "aspirant-soft-solutions.pem" ubuntu@ec2-13-233-143-50.ap-south-1.compute.amazonaws.com
 
 ## Yarn installation
 
