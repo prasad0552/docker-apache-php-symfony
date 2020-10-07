@@ -229,10 +229,11 @@ Notes: Please see more commands in Makefile
 docker-compose -f docker-compose.yml build
 docker-compose -f docker-compose.yml -p environment2  up -d
 docker-compose -f docker-compose.yml -p environment2 down
+
+docker exec -it environment2_symfony /bin/sh
 ```
 
 ## Symfony Migrations : 
-
 ```
 php bin/console doctrine:database:drop --force
 php bin/console doctrine:database:create
@@ -240,10 +241,12 @@ php bin/console doctrine:migrations:migrate
 ```
 
 ## Yarn installation
-
-apt-get update && apt-get install -y gnupg2
+apt-get update 
+apt-get install -y gnupg2
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 apt update && apt install yarn
 
- docker exec -it environment2_symfony /bin/sh
+# frontend yarn.
+yarn add --dev @symfony/webpack-encore
+yarn encore dev
