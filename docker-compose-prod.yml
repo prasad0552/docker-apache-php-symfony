@@ -44,6 +44,20 @@ services:
       volumes:
         - ./var/mysql-data:/var/lib/mysql
 
+    phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      container_name: phpmyadmin
+      ports:
+        - "8080:80"
+      environment:
+        - PMA_USER=root
+        - PMA_HOST=mysql
+        - PMA_PASSWORD=secret
+        - PHP_UPLOAD_MAX_FILESIZE=100MB
+      restart: always
+      depends_on:
+        - mysql
+
     rabbitmq:
       image: rabbitmq:3-management-alpine
       build:

@@ -165,7 +165,7 @@ make ssh-mysql
 make ssh-rabbitmq
 
 make composer-install-no-dev
-make composer-install
+make yyyyyyyyyyyjhnb 
 make composer-update
 
 make info
